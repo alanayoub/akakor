@@ -59,9 +59,9 @@ const panels = [
         selectors: []
     },
     {
-            name: 'StockTwits',
-            src: 'https://stocktwits.com/symbol/BTC',
-            selectors: []
+        name: 'StockTwits',
+        src: 'https://stocktwits.com/symbol/BTC',
+        selectors: []
     }
 ];
 
