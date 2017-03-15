@@ -2,7 +2,7 @@ var $ = require('jquery');
 var GoldenLayout = require('golden-layout');
 
 // import { layout, panels } from './configurations/property';
-import { layout, panels } from './configurations/finance';
+import { layout, panels } from '../configurations/finance';
 
 function reset_css() {
     return `

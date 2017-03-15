@@ -1,0 +1,82 @@
+// import 'babel-polyfill';
+
+// var $ = require('jquery');
+
+window.$ = require('jquery');
+var GoldenLayout = require('golden-layout');
+import { Layout } from './views/layout';
+
+const myLayout = new Layout({
+    electron: !!(window && window.process && window.process.type),
+    layout: [
+        '00112222',
+        '00112222',
+        '33112222',
+        '44442222',
+        '55555566',
+        '55555566',
+        '77777777',
+    ],
+    state: {
+        0: {title: 'View 0', url: 'messenger'},
+        1: {title: 'View 1', url: 'https://stocktwits.com/symbol/DDD?q=DDD'},
+        2: {title: 'View 2', url: 'http://www.example.com'},
+        3: {title: 'View 3', url: 'bbc news live'},
+        4: {title: 'View 4', url: 'chart2'},
+        5: {title: 'View 5', url: 'ad'},
+        6: {title: 'View 6', url: 'https://www.google.co.uk/'},
+        7: {title: 'View 7', url: 'ticker'}
+    }
+});
+
+$(window).resize(() => {
+    myLayout.updateSize();
+});
+
+
+// //
+// var l = [
+//   '000111111',
+//   '000222333',
+//   '000222333',
+//   '444444444',
+// ];
+// var l2 = [
+//   '00112222',
+//   '00112222',
+//   '33112222',
+//   '44442222',
+//   '55555566',
+// ];
+// var l3 = [
+//   '00112222',
+//   '00112222',
+//   '33112222',
+//   '44442222',
+//   '55555566',
+//   '55555566',
+//   '77777777',
+// ];
+// var l4 = [
+//   '012',
+//   '345',
+//   '678'
+// ];
+// var l5 = [
+//   '00002000',
+//   '00002000',
+//   '00002000',
+//   '11112111',
+//   '00002000',
+//   '00002000',
+//   '00002000',
+// ];
+// var l6 = [
+//     '0001112222222233',
+//     '0001112222222233',
+//     '0001112222222233',
+//     '0001114444444455',
+//     '0001114444444455',
+//     '0001114444444455',
+//     '6666666677777777'
+// ]
