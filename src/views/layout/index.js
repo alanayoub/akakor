@@ -1,67 +1,47 @@
 import 'jquery';
+import { Webview } from './webview';
+import { Default } from './default';
+import { Iframe } from './iframe';
 
 export class Layout {
 
-    constructor({layout, state, electron}) {
+    constructor({selector, layout, state}) {
 
+        const electron = !!(window && window.process && window.process.type);
         const GoldenLayout = require('golden-layout');
-        const myLayout = new GoldenLayout(Layout.generate(layout, state));
+        const golden_layout = new GoldenLayout(Layout.generate(layout, state), selector);
 
         Object.values(state).forEach(item => {
+            if (!item.url)
+                new Default({golden_layout, state: item});
+            else if (electron)
+                new Webview({golden_layout, state: item});
+            else
+                new Iframe({golden_layout, state: item});
+        });
 
-            let html;
-            if (electron) {
-                html = document.createElement('webview');
-                html.autosize = 'on';
-                html.src = item.url;
-
-                html.addEventListener('did-start-loading', () => {
-                    console.log('did start loading');
-                });
-
-                html.addEventListener('did-finish-load', () => {
-                    console.log('did finish load');
-                    let styles;
-                    if (item.selectors.length) {
-                        styles = reset_css();
-                        item.selectors.forEach(sel => {
-                            styles += css(sel);
-                        });
-                    }
-                    if (item.css) styles += item.css;
-                    console.log(styles);
-                    html.insertCSS(styles);
-                });
-
-                html.addEventListener('did-stop-loading', () => {
-                    console.log('did stop loading');
-                });
-
-                html.addEventListener('dom-ready', () => {
-                    console.log('dom ready');
-                });
-
-            }
-            else {
-                html = `
-                    <iframe src="${item.url}" width="100%" height="100%"></iframe>
-                `;
-            }
-
-            myLayout.registerComponent(item.title, function (container, state) {
-                container.getElement().html(html);
-            });
-        })
-
-        myLayout.init();
-        return myLayout;
+        golden_layout.init();
+        return golden_layout;
 
     }
 
     static generate(matrix, state) {
 
         const dimensions = Layout.dimensions(matrix);
-        let config = {};
+        let config = {
+            settings: {
+                showPopoutIcon: true,
+                showMaximiseIcon: true,
+                showCloseIcon: true,
+                reorderEnabled: true,
+                selectionEnabled: true,
+            },
+            dimensions: {
+                minItemHeight: 10,
+                minItemWidth: 10,
+                headerHeight: 20,
+            }
+        };
 
         (function recurse(matrix, ref) {
 
@@ -206,6 +186,6 @@ export class Layout {
 
         return to_string(transpose(to_array(matrix)));
 
-    }
+g   }
 
 }
