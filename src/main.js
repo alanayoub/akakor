@@ -14,64 +14,42 @@ akakor.layout = new Layout({
     state: config.state
 });
 
-akakor.layout.on('stackCreated', function(stack) {
-    console.log('stack', stack);
-    function dostuff(header) {
+//
+// Add "new tab" button
+//
+akakor.layout.on('stackCreated', function (stack) {
+    stack.on('activeContentItemChanged', function (contentItem) {
 
-        const $header = header.element;
+        const $header = contentItem.parent.header.element;
         const $tabs = $header.find('.lm_tabs');
         const $controls = $header.find('.lm_controls');
+
         let $add_tab = $header.find('.t-add-tab');
-
-
-        // $controls
-        //     .css({left: $tabs.width() + 'px'});
-
-        // $controls
-        //     .find('> li')
-        //     .css({float: 'right'});
-
-        // const listItems = $controls.find('> li');
-        // $controls.append(listItems.get().reverse());
-
         if (!$add_tab.length) {
-            header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">foo</li>');
-        }
-        $add_tab = $header.find('.t-add-tab');
+            contentItem.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
+            $add_tab = $header.find('.t-add-tab');
+            $add_tab.off('click.addtab').on('click.addtab', function (event) {
 
-        const header_width = $header.width();
-        const tabs_width = $tabs.width();
-        const controls_width = $controls.width();
-        const left = `${tabs_width + controls_width - header_width}px`;
+                stack.addChild({
+                    id: 'blah',
+                    type: 'component',
+                    componentName: 'untitled',
+                    componentState: {title: "untitled", url: ""}
+                });
+
+            });
+        }
 
         $add_tab.css({
-            left: left
+            left: `${$tabs.width() + $controls.width() - $header.width()}px`
         });
-    }
-    stack.on( 'activeContentItemChanged', function( contentItem ){
-        console.log(contentItem);
-        dostuff(contentItem.parent.header);
-        // const $header = contentItem.parent.header.element;
-        // const $tabs = $header.find('.lm_tabs');
-        // const $controls = $header.find('.lm_controls');
-        // $controls.css({
-        //     left: $tabs.width() + 'px'
-        // });
-        // $controls.find('> li').css({float: 'right'});
-        // .wrapAll('<div>').addClass('t-right').css({
-        //     'right': 0
-        // });
 
-        // var list = $controls.find('.t-right');
-        // var listItems = list.find('> li');
-        // list.append(listItems.get().reverse());
-
-
-        // interact with the contentItem
     });
-    // stack.getActiveContentItem().container.extendState({color: '#faa'});
 });
 
+//
+// Handle Resize
+//
 $(window).resize(() => {
     akakor.layout.updateSize();
 });
@@ -83,11 +61,10 @@ $('header').on('click', '.a-save', event => {
     console.log(akakor.layout.toConfig());
 });
 
-// $('body').on('click', '.a-default', event => {
-//     console.log('akakor', akakor);
-// });
 
-
+//
+// Notes
+//
 
 //
 // Add mobile checkbox
