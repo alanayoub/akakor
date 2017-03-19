@@ -72,13 +72,20 @@ export class Layout {
             }
             else {
                 const id = matrix[0].split('')[0];
+                state[id].id = `test-${id}`;
                 ref.push({
-                    type: 'component',
+                    type: 'stack',
                     width: dimensions[id].w,
                     height: dimensions[id].h,
-                    componentName: state[id].title || 'unamed',
-                    componentState: state[id]
-                })
+                    content: [{
+                        id: state[id].id,
+                        type: 'component',
+                        width: dimensions[id].w,
+                        height: dimensions[id].h,
+                        componentName: state[id].title || 'unamed',
+                        componentState: state[id]
+                    }]
+                });
             }
 
         })(matrix, config);
