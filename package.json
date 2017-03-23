@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "dev": "npm run watch-js & npm run watch-css",
-    "watch-js": "watchify ./src/main.js --debug -o ./src/main-build.js",
+    "watch-js": "watchify --insert-globals true ./src/main.js --debug -o ./src/main-build.js",
     "watch-css": "sass --watch ./src/styles"
   },
   "repository": "https://github.com/electron/electron-quick-start",
@@ -17,7 +17,7 @@
     "tutorial",
     "demo"
   ],
-  "author": "GitHub",
+  "author": "Alan Ayoub",
   "license": "CC0-1.0",
   "devDependencies": {
     "babel-cli": "^6.23.0",
@@ -26,7 +26,9 @@
     "babelify": "^7.3.0",
     "electron-prebuilt-compile": "^1.4.15",
     "golden-layout": "^1.5.7",
-    "jquery": "^3.1.1",
+    "jquery": "^3.2.1",
+    "vue": "^2.2.4",
+    "vue-form-generator": "^2.0.0-beta5",
     "watchify": "^3.9.0"
   },
   "browserify": {
