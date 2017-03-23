@@ -9,7 +9,7 @@
         "000000000"
     ],
     "state": {
-        0: {"title": "untitled", "url": ""},
+        0: {"title": "", "url": ""},
         1: {"title": "DDD Week", "url": "https://stocktwits.com/symbol/DDD?q=DDD"},
         2: {"title": "DDD DAy", "url": "https://www.tradingview.com/chart/?symbol=NYSE:DDD"},
         3: {"title": "Bloomberg", "url": "https://www.bloomberg.com/live/us"},

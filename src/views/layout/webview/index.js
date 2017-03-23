@@ -1,5 +1,5 @@
 export class Webview {
-    constructor({golden_layout, state}) {
+    constructor({golden_layout, container, state}) {
 
         const webview = document.createElement('webview');
         webview.autosize = 'on';
@@ -31,9 +31,7 @@ export class Webview {
             console.log('dom ready');
         });
 
-        golden_layout.registerComponent(state.title, function (container, state) {
-            container.getElement().html(webview);
-        });
+        container.getElement().html(webview);
 
     }
 }

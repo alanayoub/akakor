@@ -1,12 +1,17 @@
 import 'babel-polyfill';
+import $ from 'jquery';
+window.$ = $;
+
+// import "vue-form-generator/dist/vfg-core.css";
+
 import { Layout } from './views/layout';
-window.$ = require('jquery');
 
 //
 // Layout
 //
 const GoldenLayout = require('golden-layout');
-import * as config from './configurations/alan:c:trading.json';
+// import * as config from './configurations/alan:c:trading.json';
+import * as config from './configurations/alan:c:web.json';
 const akakor = {};
 akakor.layout = new Layout({
     selector: document.querySelector('body > section'),
@@ -20,29 +25,33 @@ akakor.layout = new Layout({
 akakor.layout.on('stackCreated', function (stack) {
     stack.on('activeContentItemChanged', function (contentItem) {
 
-        const $header = contentItem.parent.header.element;
-        const $tabs = $header.find('.lm_tabs');
-        const $controls = $header.find('.lm_controls');
+        setTimeout(() => {
 
-        let $add_tab = $header.find('.t-add-tab');
-        if (!$add_tab.length) {
-            contentItem.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
-            $add_tab = $header.find('.t-add-tab');
-            $add_tab.off('click.addtab').on('click.addtab', function (event) {
+            const $header = contentItem.parent.header.element;
+            const $tabs = $header.find('.lm_tabs');
+            const $controls = $header.find('.lm_controls');
 
-                stack.addChild({
-                    id: 'blah',
-                    type: 'component',
-                    componentName: 'untitled',
-                    componentState: {title: "untitled", url: ""}
+            let $add_tab = $header.find('.t-add-tab');
+            if (!$add_tab.length) {
+                contentItem.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
+                $add_tab = $header.find('.t-add-tab');
+                $add_tab.off('click.addtab').on('click.addtab', function (event) {
+
+                    stack.addChild({
+                        id: +new Date(),
+                        type: 'component',
+                        componentName: 'default',
+                        componentState: {title: '', url: ''}
+                    });
+
                 });
+            }
 
+            $add_tab.css({
+                left: `${$tabs.width() + $controls.width() - $header.width()}px`
             });
-        }
 
-        $add_tab.css({
-            left: `${$tabs.width() + $controls.width() - $header.width()}px`
-        });
+        }, 0)
 
     });
 });

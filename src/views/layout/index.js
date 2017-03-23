@@ -1,4 +1,3 @@
-import 'jquery';
 import { Webview } from './webview';
 import { Default } from './default';
 import { Iframe } from './iframe';
@@ -11,13 +10,15 @@ export class Layout {
         const GoldenLayout = require('golden-layout');
         const golden_layout = new GoldenLayout(Layout.generate(layout, state), selector);
 
-        Object.values(state).forEach(item => {
-            if (!item.url)
-                new Default({golden_layout, state: item});
-            else if (electron)
-                new Webview({golden_layout, state: item});
+        golden_layout.registerComponent('website', function (container, state) {
+            if (electron)
+                new Webview({golden_layout, container, state});
             else
-                new Iframe({golden_layout, state: item});
+                new Iframe({golden_layout, container, state});
+        });
+
+        golden_layout.registerComponent('default', function (container, state) {
+            new Default({golden_layout, container, state});
         });
 
         golden_layout.init();
@@ -82,7 +83,8 @@ export class Layout {
                         type: 'component',
                         width: dimensions[id].w,
                         height: dimensions[id].h,
-                        componentName: state[id].title || 'unamed',
+                        title: state[id].title,
+                        componentName: state[id].url ? 'website' : 'default',
                         componentState: state[id]
                     }]
                 });
