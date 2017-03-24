@@ -1,4 +1,3 @@
-import { Form } from '../../form/new';
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 import Vue from 'vue/dist/vue';
 export class Default {
@@ -10,12 +9,12 @@ export class Default {
                 <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
             </div>
         `);
-        new Form();
 
         container.getElement().html($html);
-        setTimeout(function () {
 
-            var vm = new Vue({
+        setTimeout(() => {
+
+            new Vue({
                 el: `.A-form-new.a-form-${id}`,
                 components: {
                     'vue-form-generator': VueFormGenerator.component
@@ -63,6 +62,7 @@ export class Default {
                                         id,
                                         type: 'component',
                                         componentName: 'website',
+                                        title: event.title,
                                         componentState: {title: event.title, url: event.url}
                                     };
                                     const stack = container.parent.parent;
