@@ -24,7 +24,7 @@ export class Default {
                         id: 1,
                         title: "Example",
                         url: "https://example.com",
-                        update: "Don't Update"
+                        update: Infinity
                     },
                     schema: {
                         fields: [
@@ -44,12 +44,17 @@ export class Default {
                                 type: "select",
                                 label: "Update",
                                 model: "update",
-                                values: [
-                                    "Don't Update",
-                                    "Every 1 minute",
-                                    "Every 5 minutes",
-                                    "Every 30 minutes"
-                                ]
+                                required: true,
+                                values: function() {
+                                  return [
+                                    { id: Infinity, name: "Never" },
+                                    { id: 60, name: "1 minute" },
+                                    { id: 300, name: "5 minutes" },
+                                    { id: 600, name: "10 minutes" },
+                                    { id: 1800, name: "30 minutes" }
+                                  ]
+                                },
+                                default: "en-US"
                             },
                             {
                                 type: 'submit',
@@ -63,7 +68,11 @@ export class Default {
                                         type: 'component',
                                         componentName: 'website',
                                         title: event.title,
-                                        componentState: {title: event.title, url: event.url}
+                                        componentState: {
+                                            title: event.title,
+                                            url: event.url,
+                                            update: ''
+                                        }
                                     };
                                     const stack = container.parent.parent;
                                     const component = container.parent;

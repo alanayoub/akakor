@@ -34,12 +34,9 @@ function createWindow({local, web}) {
 }
 
 app.on('ready', () => {
-    createWindow({local: './src/index.html'});
-    // createWindow({web: 'http://www.zoopla.co.uk/'});
-    // createWindow({web: 'http://binaryoverdose.com/'});
+    createWindow({local: './index-web.html'});
 });
 
-// Quit when all windows are closed.
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') {
         app.quit();

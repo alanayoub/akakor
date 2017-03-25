@@ -2,11 +2,11 @@
   "name": "electron-quick-start",
   "version": "1.0.0",
   "description": "A minimal Electron application",
-  "main": "main.js",
+  "main": "./src/main-electron.js",
   "scripts": {
     "start": "electron .",
     "dev": "npm run watch-js & npm run watch-css",
-    "watch-js": "watchify --insert-globals true ./src/main.js --debug -o ./src/main-build.js",
+    "watch-js": "watchify --insert-globals true ./src/main-web.js --debug -o ./src/main-web-build.js",
     "watch-css": "sass --watch ./src/styles"
   },
   "repository": "https://github.com/electron/electron-quick-start",

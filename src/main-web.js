@@ -2,13 +2,8 @@ import 'babel-polyfill';
 import $ from 'jquery';
 window.$ = $;
 
-// import "vue-form-generator/dist/vfg-core.css";
-
 import { Layout } from './views/layout';
 
-//
-// Layout
-//
 const GoldenLayout = require('golden-layout');
 // import * as config from './configurations/alan:c:trading.json';
 import * as config from './configurations/alan:c:web.json';
@@ -23,17 +18,17 @@ akakor.layout = new Layout({
 // Add "new tab" button
 //
 akakor.layout.on('stackCreated', function (stack) {
-    stack.on('activeContentItemChanged', function (contentItem) {
+    stack.on('activeContentItemChanged', function (content_item) {
 
         setTimeout(() => {
 
-            const $header = contentItem.parent.header.element;
+            const $header = content_item.parent.header.element;
             const $tabs = $header.find('.lm_tabs');
             const $controls = $header.find('.lm_controls');
 
             let $add_tab = $header.find('.t-add-tab');
             if (!$add_tab.length) {
-                contentItem.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
+                content_item.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
                 $add_tab = $header.find('.t-add-tab');
                 $add_tab.off('click.addtab').on('click.addtab', function (event) {
 
@@ -51,24 +46,21 @@ akakor.layout.on('stackCreated', function (stack) {
                 left: `${$tabs.width() + $controls.width() - $header.width()}px`
             });
 
-        }, 0)
+        });
 
     });
 });
 
-//
-// Handle Resize
-//
 $(window).resize(() => {
     akakor.layout.updateSize();
 });
 
-//
-// Save
-//
 $('header').on('click', '.a-save', event => {
     console.log(akakor.layout.toConfig());
 });
+
+
+
 
 
 //
