@@ -34,7 +34,7 @@ function createWindow({local, web}) {
 }
 
 app.on('ready', () => {
-    createWindow({local: './index-web.html'});
+    createWindow({local: './signin.html'});
 });
 
 app.on('window-all-closed', function () {
