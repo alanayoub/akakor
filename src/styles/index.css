@@ -32,4 +32,25 @@ section {
 footer {
   display: none; }
 
+.A-main-tabs .a-tabs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 25px; }
+  .A-main-tabs .a-tabs li {
+    float: left; }
+  .A-main-tabs .a-tabs .a-tab.a-active {
+    font-weight: bold;
+    background: #fee; }
+  .A-main-tabs .a-tabs .a-content {
+    display: none; }
+.A-main-tabs .a-contents,
+.A-main-tabs .a-content {
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  bottom: 0; }
+
 /*# sourceMappingURL=index.css.map */

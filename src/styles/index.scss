@@ -41,3 +41,37 @@ footer {
 .A-form-new {
 
 }
+
+//
+// Tabs
+//
+
+.A-main-tabs {
+    .a-tabs {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 25px;
+        li {
+            float: left;
+        }
+        .a-tab {
+            &.a-active {
+                font-weight: bold;
+                background: #fee;
+            }
+        }
+        .a-content {
+            display: none;
+        }
+    }
+    .a-contents,
+    .a-content {
+        position: absolute;
+        top: 25px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}

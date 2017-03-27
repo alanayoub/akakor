@@ -7,6 +7,7 @@ import $ from 'jquery';
 
 import * as config from './configurations/alan:c:web.json';
 import { Layout } from './views/layout';
+import { MainTabs } from './views/main_tabs';
 
 window.$ = $;
 const GoldenLayout = require('golden-layout');
@@ -25,52 +26,17 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     if (!firebaseUser && loc !== signin) window.location.replace(signin);
     if (firebaseUser) {
 
-        const akakor = {};
-        akakor.layout = new Layout({
-            selector: document.querySelector('body > section'),
-            layout: config.layout,
-            state: config.state
-        });
-
-        //
-        // Add "new tab" button
-        //
-        akakor.layout.on('stackCreated', function (stack) {
-            stack.on('activeContentItemChanged', function (content_item) {
-
-                setTimeout(() => {
-
-                    const $header = content_item.parent.header.element;
-                    const $tabs = $header.find('.lm_tabs');
-                    const $controls = $header.find('.lm_controls');
-
-                    let $add_tab = $header.find('.t-add-tab');
-                    if (!$add_tab.length) {
-                        content_item.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
-                        $add_tab = $header.find('.t-add-tab');
-                        $add_tab.off('click.addtab').on('click.addtab', function (event) {
-
-                            stack.addChild({
-                                id: +new Date(),
-                                type: 'component',
-                                componentName: 'default',
-                                componentState: {title: '', url: ''}
-                            });
-
-                        });
-                    }
-
-                    $add_tab.css({
-                        left: `${$tabs.width() + $controls.width() - $header.width()}px`
-                    });
-
-                });
-
+        const main_tabs = new MainTabs({selector: 'body > section'});
+        main_tabs.new_tab('Select a Layout', $el => {
+            new Layout({
+                selector: $el,
+                layout: config.layout,
+                state: config.state
             });
         });
 
         $(window).resize(() => {
-            akakor.layout.updateSize();
+            // akakor.layout.updateSize();
         });
 
         $('header').on('click', '.a-save', event => {
