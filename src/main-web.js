@@ -18,12 +18,38 @@ firebase.initializeApp({
     messagingSenderId: "300145344405"
 });
 
-firebase.auth().onAuthStateChanged(firebaseUser => {
+const db = firebase.database();
+const auth = firebase.auth();
+
+function check_if_user_exists(auth_data) {
+    return db
+        .ref('users')
+        .child(auth_data.uid)
+        .once('value')
+        .then(dataSnapshot => {
+            return Promise.resolve({
+                auth_data,
+                exists: dataSnapshot.exists(),
+            });
+        });
+}
+
+auth.onAuthStateChanged(user => {
     const loc = window.location.href;
     const signin = 'http://localhost:8080/signin.html';
-    if (!firebaseUser && loc !== signin) window.location.replace(signin);
-    if (firebaseUser) {
+    if (!user && loc !== signin) window.location.replace(signin);
+    if (user) {
 
+        check_if_user_exists(user).then(({auth_data, exists}) => {
+            const provider_data = auth_data.providerData[0];
+            if (exists) {
+                for (let [key, val] of Object.entries(provider_data)) {
+                    db.ref(`users/${auth_data.uid}/${key}/`).set(val);
+                }
+            } else {
+                db.ref(`users/${auth_data.uid}`).set(provider_data);
+            }
+        });
 
         const main_tabs = new MainTabs({
             selector: 'body > section'
@@ -39,7 +65,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
         $('header').on('click', '.a-signout', event => {
             console.log('signing out');
-            firebase.auth().signOut();
+            auth.signOut();
         });
     }
 });
