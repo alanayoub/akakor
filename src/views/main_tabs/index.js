@@ -1,3 +1,4 @@
+import { SelectLayoutView } from '../select_layout';
 export class MainTabs {
     constructor({selector}) {
         const $selector = $(selector);
@@ -12,6 +13,9 @@ export class MainTabs {
         $selector.find('.a-add-tab').on('click', event => {
             this.new_default_tab();
         });
+        this.new_default_tab();
+
+
     }
     new_tab(title, cb) {
         const id = +new Date();
@@ -23,7 +27,7 @@ export class MainTabs {
     }
     new_default_tab() {
         this.new_tab('Select a Layout', $el => {
-            $el.html('<div>Layouts...</div>');
+            new SelectLayoutView($el);
         });
     }
     show_tab(id) {

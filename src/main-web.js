@@ -5,8 +5,6 @@ import 'firebase/auth';
 import 'firebase/database';
 import $ from 'jquery';
 
-import * as config from './configurations/alan:c:web.json';
-import { Layout } from './views/layout';
 import { MainTabs } from './views/main_tabs';
 
 window.$ = $;
@@ -26,13 +24,9 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     if (!firebaseUser && loc !== signin) window.location.replace(signin);
     if (firebaseUser) {
 
-        const main_tabs = new MainTabs({selector: 'body > section'});
-        main_tabs.new_tab('Select a Layout', $el => {
-            new Layout({
-                selector: $el,
-                layout: config.layout,
-                state: config.state
-            });
+
+        const main_tabs = new MainTabs({
+            selector: 'body > section'
         });
 
         $(window).resize(() => {
