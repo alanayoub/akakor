@@ -2,9 +2,25 @@ import { Webview } from './webview';
 import { Default } from './default';
 import { Iframe } from './iframe';
 
+//
+// Add some defaults for any missing properties
+//
+function upgrade_state({layout, state}) {
+    const state_ids = new Set(layout.join(''));
+    for (let id of state_ids) {
+        if (!state[id]) state[id] = {};
+        Object.assign(state[id], {
+            url: '', title: ''
+        });
+    };
+    return state;
+}
+
 export class Layout {
 
-    constructor({selector, layout, state}) {
+    constructor({selector, layout, state = {}}) {
+
+        state = upgrade_state({layout, state});
 
         const electron = !!(window && window.process && window.process.type);
         const GoldenLayout = require('golden-layout');

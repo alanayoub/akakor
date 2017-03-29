@@ -53,4 +53,8 @@ footer {
   right: 0;
   bottom: 0; }
 
+.A-layout-selector ul li {
+  display: inline-block;
+  margin: 20px; }
+
 /*# sourceMappingURL=index.css.map */

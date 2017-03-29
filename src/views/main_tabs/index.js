@@ -1,4 +1,4 @@
-import { SelectLayoutView } from '../select_layout';
+import { SelectLayoutView } from '../layout_selector';
 export class MainTabs {
     constructor({selector}) {
         const $selector = $(selector);
@@ -26,7 +26,7 @@ export class MainTabs {
         cb(container);
     }
     new_default_tab() {
-        this.new_tab('Select a Layout', $el => {
+        this.new_tab('Untitled Layout', $el => {
             new SelectLayoutView($el);
         });
     }

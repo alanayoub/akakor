@@ -8,6 +8,8 @@ import $ from 'jquery';
 import { MainTabs } from './views/main_tabs';
 
 window.$ = $;
+window.firebase = firebase;
+
 const GoldenLayout = require('golden-layout');
 
 firebase.initializeApp({
