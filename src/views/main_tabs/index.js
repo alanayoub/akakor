@@ -10,15 +10,17 @@ export class MainTabs {
             const id = $target.closest('[data-id]').data('id');
             this.show_tab(id);
         });
-        $selector.find('.a-add-tab').on('click', event => {
+        $selector.on('click', '.a-add-tab', event => {
             this.new_default_tab();
         });
+        $selector.on('blur', '[contenteditable]', event => {
+            event.stopPropagation();
+            console.log('test', event.target.textContent);
+        });
         this.new_default_tab();
-
-
     }
     new_tab(title, cb) {
-        const id = +new Date();
+        const id = String(Math.random()).substring(2);
         const $new_tab = $(this.template_tabs(id, title));
         const $add_tab = this.$tabs_container.find('.a-add-tab');
         $new_tab.insertBefore($add_tab);
@@ -52,7 +54,7 @@ export class MainTabs {
     }
     template_tabs(id, title) {
         return `
-            <li class="a-tab" data-id="${id}">${title}</li>
+            <li class="a-tab" data-id="${id}" contenteditable="true">${title}</li>
         `;
     }
     template_content(id) {
