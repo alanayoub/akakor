@@ -16,11 +16,16 @@ export class SelectLayoutView {
         $selector
             .html(template)
             .on('click', 'li', event => {
+                $selector.empty();
                 const $target = $(event.target);
                 const id = $target.data('id');
-                new Layout({
+                const layout = new Layout({
                     selector: $selector,
                     layout: config[id]
+                });
+
+                $(window).on('resize', event => {
+                    layout.updateSize();
                 });
             });
 

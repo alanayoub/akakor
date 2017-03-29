@@ -39,6 +39,9 @@ export class Layout {
 
         golden_layout.init();
 
+        golden_layout.on('initialised', function () {
+        });
+
         golden_layout.on('stackCreated', function (stack) {
             stack.on('activeContentItemChanged', function (content_item) {
 

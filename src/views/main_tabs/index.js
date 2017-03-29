@@ -3,7 +3,7 @@ export class MainTabs {
     constructor({selector}) {
         const $selector = $(selector);
         $selector.html(this.template);
-        this.$tabs_container = $selector.find('.A-main-tabs .a-tabs');
+        this.$tabs_container = $selector.find('.A-main-tabs .a-tabs ul');
         this.$contents_container = $selector.find('.A-main-tabs .a-contents');
         this.$tabs_container.on('click', '.a-tab', event => {
             const $target = $(event.target);
@@ -19,7 +19,9 @@ export class MainTabs {
     }
     new_tab(title, cb) {
         const id = +new Date();
-        this.$tabs_container.append(this.template_tabs(id, title));
+        const $new_tab = $(this.template_tabs(id, title));
+        const $add_tab = this.$tabs_container.find('.a-add-tab');
+        $new_tab.insertBefore($add_tab);
         this.$contents_container.append(this.template_content(id));
         this.show_tab(id);
         const container = this.$contents_container.find(`[data-id=${id}]`);
@@ -39,8 +41,11 @@ export class MainTabs {
     get template() {
         return `
             <div class="A-main-tabs">
-                <ul class="a-tabs"></ul>
-                <div class="a-add-tab">+</div>
+                <div class="a-tabs">
+                    <ul>
+                        <li class="a-add-tab">+</li>
+                    </ul>
+                </div>
                 <div class="a-contents"></div>
             </div>
         `;

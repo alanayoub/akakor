@@ -6,7 +6,9 @@ export class Default {
         const id = +new Date();
         const $html = $(`
             <div class="A-form-new a-form-${id}">
-                <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+                <div class="a-container">
+                    <vue-form-generator :schema="schema" :model="model" :options="formOptions"></vue-form-generator>
+                </div>
             </div>
         `);
 
@@ -58,7 +60,7 @@ export class Default {
                             },
                             {
                                 type: 'submit',
-                                label: 'Submit',
+                                buttonText: 'Submit',
                                 validateBeforeSubmit: true,
                                 onSubmit: function (event) {
                                     const id = +new Date();

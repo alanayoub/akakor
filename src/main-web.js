@@ -10,8 +10,6 @@ import { MainTabs } from './views/main_tabs';
 window.$ = $;
 window.firebase = firebase;
 
-const GoldenLayout = require('golden-layout');
-
 firebase.initializeApp({
     apiKey: "AIzaSyAWPm9I7EinJ1eo_wvhJWzGZQ4FkyIf0tY",
     authDomain: "akakor-b9059.firebaseapp.com",
@@ -57,12 +55,9 @@ auth.onAuthStateChanged(user => {
             selector: 'body > section'
         });
 
-        $(window).resize(() => {
-            // akakor.layout.updateSize();
-        });
 
         $('header').on('click', '.a-save', event => {
-            console.log(akakor.layout.toConfig());
+            // console.log(akakor.layout.toConfig());
         });
 
         $('header').on('click', '.a-signout', event => {
