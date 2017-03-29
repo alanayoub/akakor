@@ -3,3 +3,5 @@
 *.swo
 *.swn
 .sass-cache/
+.css.map
+main-web-build.js
