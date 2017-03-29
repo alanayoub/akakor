@@ -37,7 +37,6 @@ export class Layout {
             new Default({golden_layout, container, state});
         });
 
-        golden_layout.init();
 
         golden_layout.on('initialised', function () {
         });
@@ -76,6 +75,7 @@ export class Layout {
             });
         });
 
+        golden_layout.init();
         return golden_layout;
 
     }

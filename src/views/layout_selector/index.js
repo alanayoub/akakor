@@ -15,6 +15,7 @@ export class SelectLayoutView {
 
         $selector
             .html(template)
+            .find('.A-layout-selector')
             .on('click', 'li', event => {
                 $selector.empty();
                 const $target = $(event.target);
