@@ -3,7 +3,6 @@ import { Layout } from '../layout';
 export class SelectLayoutView {
     constructor(selector) {
         const $selector = $(selector);
-        const db = firebase.database();
         const config = {};
 
         const template = `
@@ -30,18 +29,15 @@ export class SelectLayoutView {
                 });
             });
 
-        db.ref('default_configurations')
-            .once('value')
-            .then(data => {
-                let html = '';
-                for (let [key, val] of Object.entries(data.val())) {
-                    const layout = JSON.stringify(val.layout);
-                    html += `<li data-id="${key}">${layout}</li>`;
-                    config[key] = val.layout;
-                }
-                $('.A-layout-selector ul').html(html);
-            });
-
+        akakor.api.get_default_configurations().then(data => {
+            let html = '';
+            for (let [key, val] of Object.entries(data.val())) {
+                const layout = JSON.stringify(val.layout);
+                html += `<li data-id="${key}">${layout}</li>`;
+                config[key] = val.layout;
+            }
+            $('.A-layout-selector ul').html(html);
+        });
 
     }
 }
