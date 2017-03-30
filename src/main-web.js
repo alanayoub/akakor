@@ -20,7 +20,8 @@ auth.onAuthStateChanged(user => {
     if (!user && loc !== signin) window.location.replace(signin);
     if (user) {
 
-        api.update_user(user);
+        akakor.api.user = user;
+        api.update_user();
 
         const main_tabs = new MainTabs({
             selector: 'body > section'

@@ -1,5 +1,6 @@
 import { SelectLayoutView } from '../layout_selector';
 export class MainTabs {
+
     constructor({selector}) {
         const $selector = $(selector);
         $selector.html(this.template);
@@ -19,6 +20,7 @@ export class MainTabs {
         });
         this.new_default_tab();
     }
+
     new_tab(title, cb) {
         const id = String(Math.random()).substring(2);
         const $new_tab = $(this.template_tabs(id, title));
@@ -29,17 +31,20 @@ export class MainTabs {
         const container = this.$contents_container.find(`[data-id=${id}]`);
         cb(container);
     }
+
     new_default_tab() {
         this.new_tab('Untitled Layout', $el => {
             new SelectLayoutView($el);
         });
     }
+
     show_tab(id) {
         this.$tabs_container.find('.a-tab').removeClass('a-active');
         this.$tabs_container.find(`[data-id="${id}"]`).addClass('a-active');
         this.$contents_container.find('.a-content').hide();
         this.$contents_container.find(`[data-id="${id}"]`).show();
     }
+
     get template() {
         return `
             <div class="A-main-tabs">
@@ -52,14 +57,17 @@ export class MainTabs {
             </div>
         `;
     }
+
     template_tabs(id, title) {
         return `
             <li class="a-tab" data-id="${id}" contenteditable="true">${title}</li>
         `;
     }
+
     template_content(id) {
         return `
             <div class="a-content" data-id="${id}"></div>
         `;
     }
+
 }

@@ -1,10 +1,11 @@
 import { Layout } from '../layout';
 // import * as config from '../../configurations/alan:c:web.json';
 export class SelectLayoutView {
+
     constructor(selector) {
+
         const $selector = $(selector);
         const config = {};
-
         const template = `
             <div class="A-layout-selector">
                 <h1>Select a Layout</h1>
@@ -24,6 +25,11 @@ export class SelectLayoutView {
                     layout: config[id]
                 });
 
+                akakor.api.save({
+                    id,
+                    layout: layout.toConfig().content
+                })
+
                 $(window).on('resize', event => {
                     layout.updateSize();
                 });
@@ -40,4 +46,5 @@ export class SelectLayoutView {
         });
 
     }
+
 }

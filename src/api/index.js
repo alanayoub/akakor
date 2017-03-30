@@ -15,6 +15,11 @@ export class API {
         });
     }
 
+    set user(user) {
+        const api = this;
+        api.current_user = user;
+    }
+
     get db() {
         return firebase.database();
     }
@@ -25,39 +30,55 @@ export class API {
 
     get_default_configurations() {
         const api = this;
-        return api.db.ref('default_configurations').once('value');
+        return api.db.ref('configurations_default').once('value');
     }
 
-    check_if_user_exists(auth_data) {
+    check_if_user_exists() {
         const api = this;
         return api.db
             .ref('users')
-            .child(auth_data.uid)
+            .child(api.current_user.uid)
             .once('value')
-            .then(dataSnapshot => {
-                return Promise.resolve({
-                    auth_data,
-                    exists: dataSnapshot.exists(),
-                });
+            .then(data => {
+                return Promise.resolve(data.exists());
             });
     }
 
-    update_user(user) {
+    check_if_config_exists(id) {
         const api = this;
-        api.check_if_user_exists(user).then(({auth_data, exists}) => {
-            const provider_data = auth_data.providerData[0];
+        return api.db
+            .ref('configurations_private')
+            .child(api.current_user.uid)
+            .child(id)
+            .once('value')
+            .then(data => {
+                return Promise.resolve(data.exists());
+            });
+    }
+
+    update_user() {
+        const api = this;
+        api.check_if_user_exists().then(exists => {
+            const provider_data = api.current_user.providerData[0];
             if (exists) {
                 for (let [key, val] of Object.entries(provider_data)) {
-                    api.db.ref(`users/${auth_data.uid}/${key}/`).set(val);
+                    api.db.ref(`users/${api.current_user.uid}/${key}/`).set(val);
                 }
             } else {
-                api.db.ref(`users/${auth_data.uid}`).set(provider_data);
+                api.db.ref(`users/${api.current_user.uid}`).set(provider_data);
             }
         });
     }
 
-    save_config() {
+    save({id}) {
         const api = this;
+        api.check_if_config_exists(id).then(exists => {
+            if (exists) {
+                console.log('config exists');
+            } else {
+                console.log('config doesnt exist');
+            }
+        });
     }
 
 }

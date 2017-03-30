@@ -1,6 +1,7 @@
 import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
 import Vue from 'vue/dist/vue';
 export class Default {
+
     constructor({golden_layout, container, state}) {
 
         const id = +new Date();
@@ -11,11 +12,8 @@ export class Default {
                 </div>
             </div>
         `);
-
         container.getElement().html($html);
-
         setTimeout(() => {
-
             new Vue({
                 el: `.A-form-new.a-form-${id}`,
                 components: {
@@ -91,7 +89,6 @@ export class Default {
                     }
                 }
             });
-
         });
 
     }
