@@ -13,6 +13,7 @@ function createWindow({local, web}) {
             'web-security': false
         }
     });
+    const ses = win.webContents.session;
     const idx = windows.push(win);
 
     if (local) {
@@ -26,6 +27,8 @@ function createWindow({local, web}) {
         win.loadURL(web);
     }
 
+
+    ses.clearCache(() => {});
     win.webContents.openDevTools();
     win.on('closed', function () {
         windows.splice(idx, 1);
