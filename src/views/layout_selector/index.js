@@ -27,6 +27,7 @@ export class SelectLayoutView {
                             const layout = new Layout({
                                 selector: $layout_container,
                                 layout: JSON.parse(val.layout),
+                                title: val.title,
                                 tab: $tab,
                                 id
                             });

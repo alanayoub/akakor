@@ -18,7 +18,7 @@ function upgrade_state({layout, state}) {
 
 export class Layout {
 
-    constructor({selector, layout, id, tab, state = {}}) {
+    constructor({selector, layout, id, title, tab, state = {}}) {
 
         let config = {
             settings: {
@@ -73,6 +73,7 @@ export class Layout {
             }).then(new_id => {
                 id = new_id;
                 tab.attr('data-id', id);
+                tab.text(title);
                 selector.attr('data-id', id);
             });
         });
