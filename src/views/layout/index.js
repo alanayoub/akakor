@@ -18,7 +18,7 @@ function upgrade_state({layout, state}) {
 
 export class Layout {
 
-    constructor({selector, layout, id, state = {}}) {
+    constructor({selector, layout, id, tab, state = {}}) {
 
         let config = {
             settings: {
@@ -71,9 +71,9 @@ export class Layout {
                 layout: golden_layout.toConfig().content,
                 id
             }).then(new_id => {
-                console.log('old id', id);
-                console.log('new id', new_id);
                 id = new_id;
+                tab.attr('data-id', id);
+                selector.attr('data-id', id);
             });
         });
 

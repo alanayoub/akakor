@@ -16,7 +16,12 @@ export class MainTabs {
         });
         $selector.on('blur', '[contenteditable]', event => {
             event.stopPropagation();
-            console.log('test', event.target.textContent);
+            const title = event.target.textContent;
+            const id = $(event.target).data('id');
+            akakor.api.update_title({
+                title,
+                id
+            });
         });
         this.new_default_tab();
     }

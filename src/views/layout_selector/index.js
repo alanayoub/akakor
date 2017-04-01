@@ -27,9 +27,11 @@ export class SelectLayoutView {
                             const layout = new Layout({
                                 selector: $layout_container,
                                 layout: JSON.parse(val.layout),
+                                tab: $tab,
                                 id
                             });
                         });
+
                     });
                 this.$list_container = $list_container;
                 this.render();

@@ -27,7 +27,6 @@ function createWindow({local, web}) {
         win.loadURL(web);
     }
 
-
     ses.clearCache(() => {});
     win.webContents.openDevTools();
     win.on('closed', function () {

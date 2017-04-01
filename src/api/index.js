@@ -89,11 +89,24 @@ export class API {
         });
     }
 
+    update_title({id, title}) {
+        const api = this;
+        return new Promise(resolve => {
+            api.check_if_config_exists(id).then(exists => {
+                if (!exists) return resolve(false);
+                const updates = {};
+                const path = `configurations_private/${api.current_user.uid}`;
+                updates[`${path}/${id}/title`] = title;
+                api.db.ref().update(updates);
+                resolve(true);
+            });
+        });
+    }
+
     save({layout, id}) {
         const api = this;
         return new Promise(resolve => {
             api.check_if_config_exists(id).then(exists => {
-                console.log('exists? ', exists);
                 const updates = {};
                 const path = `configurations_private/${api.current_user.uid}`;
                 if (!exists) {
