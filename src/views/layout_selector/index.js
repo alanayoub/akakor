@@ -30,17 +30,6 @@ export class SelectLayoutView {
                                 id
                             });
                         });
-
-                        // akakor.api.save({
-                        //     id,
-                        //     layout: layout.toConfig().content
-                        // })
-
-                        // $(window).on('resize', event => {
-                        //     layout.updateSize();
-                        // });
-
-
                     });
                 this.$list_container = $list_container;
                 this.render();
@@ -72,7 +61,6 @@ export class SelectLayoutView {
                 $list_container
                     .html(this.template)
                     .on('click', 'li', event => {
-
                         const $target = $(event.target);
                         const id = $target.data('id');
                         const layout = new Layout({
@@ -80,14 +68,6 @@ export class SelectLayoutView {
                             layout: this.configs[id],
                             id
                         });
-
-
-
-                        // $(window).on('resize', event => {
-                        //     layout.updateSize();
-                        // });
-
-
                     });
                 this.$list_container = $list_container;
                 this.render();

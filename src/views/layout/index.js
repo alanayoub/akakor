@@ -51,10 +51,13 @@ export class Layout {
         }
 
         golden_layout.registerComponent('website', function (container, state) {
-            if (electron)
+            console.log(container, state);
+            if (electron) {
                 new Webview({golden_layout, container, state});
-            else
+            }
+            else {
                 new Iframe({golden_layout, container, state});
+            }
         });
 
         golden_layout.registerComponent('default', function (container, state) {
@@ -78,11 +81,9 @@ export class Layout {
             stack.on('activeContentItemChanged', function (content_item) {
 
                 setTimeout(() => {
-
                     const $header = content_item.parent.header.element;
                     const $tabs = $header.find('.lm_tabs');
                     const $controls = $header.find('.lm_controls');
-
                     let $add_tab = $header.find('.t-add-tab');
                     if (!$add_tab.length) {
                         content_item.parent.header.controlsContainer.prepend('<li class="t-add-tab" style="background: #fff">+</li>');
@@ -98,14 +99,16 @@ export class Layout {
 
                         });
                     }
-
                     $add_tab.css({
                         left: `${$tabs.width() + $controls.width() - $header.width()}px`
                     });
-
                 });
 
             });
+        });
+
+        $(window).on('resize', event => {
+            golden_layout.updateSize();
         });
 
         golden_layout.init();

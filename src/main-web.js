@@ -27,10 +27,7 @@ auth.onAuthStateChanged(user => {
             selector: 'body > section'
         });
 
-        $('header').on('click', '.a-save', event => {
-            console.log('save');
-            // console.log(akakor.layout.toConfig());
-        });
+        $('header').on('click', '.a-save', event => {});
 
         $('header').on('click', '.a-signout', event => {
             console.log('signing out');

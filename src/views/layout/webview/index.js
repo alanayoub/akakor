@@ -5,12 +5,14 @@ export class Webview {
         webview.autosize = 'on';
         webview.src = state.url;
 
-        webview.addEventListener('did-start-loading', () => {
+
+        webview.addEventListener('did-start-loading', event => {
             console.log('did start loading');
         });
 
         webview.addEventListener('did-finish-load', () => {
             console.log('did finish load');
+
             let styles;
             if (state.selectors && state.selectors.length) {
                 styles = reset_css();
@@ -27,8 +29,14 @@ export class Webview {
             console.log('did stop loading');
         });
 
-        webview.addEventListener('dom-ready', () => {
+        webview.addEventListener('dom-ready', event => {
             console.log('dom ready');
+            container.getState();
+            const title = event.srcElement.getTitle();
+            container.setTitle(title);
+            container.extendState({
+                title
+            });
         });
 
         container.getElement().html(webview);

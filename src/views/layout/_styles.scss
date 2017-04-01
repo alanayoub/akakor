@@ -1,0 +1,10 @@
+//
+// Golden Layout overrides
+//
+.lm_splitter.lm_horizontal .lm_drag_handle {
+    position: absolute;
+    width: 11px;
+    left: -3px;
+    cursor: e-resize;
+    height: 100%;
+}
