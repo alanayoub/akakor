@@ -18,13 +18,37 @@ function upgrade_state({layout, state}) {
 
 export class Layout {
 
-    constructor({selector, layout, state = {}}) {
+    constructor({selector, layout, id, state = {}}) {
 
-        state = upgrade_state({layout, state});
+        let config = {
+            settings: {
+                showPopoutIcon: true,
+                showMaximiseIcon: true,
+                showCloseIcon: true,
+                reorderEnabled: true,
+                selectionEnabled: true,
+            },
+            dimensions: {
+                minItemHeight: 10,
+                minItemWidth: 10,
+                headerHeight: 20,
+            }
+        };
 
-        const electron = !!(window && window.process && window.process.type);
         const GoldenLayout = require('golden-layout');
-        const golden_layout = new GoldenLayout(Layout.generate(layout, state), selector);
+        const electron = !!(window && window.process && window.process.type);
+        let golden_layout;
+
+        // Default or existing private
+        if (layout[0].type === 'column') {
+            config.content = layout;
+            golden_layout = new GoldenLayout(config, selector);
+        }
+        else {
+            state = upgrade_state({layout, state});
+            const generated_layout = Layout.generate(layout, state, config);
+            golden_layout = new GoldenLayout(generated_layout, selector);
+        }
 
         golden_layout.registerComponent('website', function (container, state) {
             if (electron)
@@ -38,6 +62,17 @@ export class Layout {
         });
 
         golden_layout.on('initialised', function () {});
+
+        golden_layout.on('stateChanged', function () {
+            akakor.api.save({
+                layout: golden_layout.toConfig().content,
+                id
+            }).then(new_id => {
+                console.log('old id', id);
+                console.log('new id', new_id);
+                id = new_id;
+            });
+        });
 
         golden_layout.on('stackCreated', function (stack) {
             stack.on('activeContentItemChanged', function (content_item) {
@@ -75,26 +110,11 @@ export class Layout {
 
         golden_layout.init();
         return golden_layout;
-
     }
 
-    static generate(matrix, state) {
+    static generate(matrix, state, config) {
 
         const dimensions = Layout.dimensions(matrix);
-        let config = {
-            settings: {
-                showPopoutIcon: true,
-                showMaximiseIcon: true,
-                showCloseIcon: true,
-                reorderEnabled: true,
-                selectionEnabled: true,
-            },
-            dimensions: {
-                minItemHeight: 10,
-                minItemWidth: 10,
-                headerHeight: 20,
-            }
-        };
 
         (function recurse(matrix, ref) {
 

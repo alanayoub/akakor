@@ -28,9 +28,28 @@ export class API {
         return firebase.auth();
     }
 
-    get_default_configurations() {
+    get_configurations(type) {
         const api = this;
-        return api.db.ref('configurations_default').once('value');
+        let result;
+        if (type === 'private') {
+            result = api.db
+                .ref(`configurations_${type}`)
+                .child(api.current_user.uid)
+                .once('value');
+        }
+        if (type === 'default') {
+            result = api.db
+                .ref(`configurations_${type}`)
+                .once('value');
+        }
+        return result;
+    }
+
+    get_configuration_private(id) {
+        const api = this;
+        return api.db
+            .ref(`configurations_private/${api.current_user.uid}/${id}`)
+            .once('value');
     }
 
     check_if_user_exists() {
@@ -70,14 +89,21 @@ export class API {
         });
     }
 
-    save({id}) {
+    save({layout, id}) {
         const api = this;
-        api.check_if_config_exists(id).then(exists => {
-            if (exists) {
-                console.log('config exists');
-            } else {
-                console.log('config doesnt exist');
-            }
+        return new Promise(resolve => {
+            api.check_if_config_exists(id).then(exists => {
+                console.log('exists? ', exists);
+                const updates = {};
+                const path = `configurations_private/${api.current_user.uid}`;
+                if (!exists) {
+                    id = api.db.ref(`configurations_private/${api.current_user.uid}`).push().key;
+                    updates[`${path}/${id}/title`] = 'Untitled';
+                }
+                updates[`${path}/${id}/layout`] = JSON.stringify(layout);
+                api.db.ref().update(updates);
+                resolve(id);
+            });
         });
     }
 

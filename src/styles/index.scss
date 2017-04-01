@@ -3,6 +3,32 @@
 body {
     margin: 0;
     padding: 0;
+    > header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 50px;
+        background: #ccc;
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        li {
+            display: inline-block;
+            margin: 5px;
+        }
+    }
+    > section {
+        position: absolute;
+        top: 51px;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    > footer {
+        display: none;
+    }
 }
 
 #app {
@@ -19,34 +45,6 @@ webview {
     height: 100%;
 }
 
-header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50px;
-    background: #ccc;
-    ul {
-        margin: 0;
-        padding: 0;
-    }
-    li {
-        display: inline-block;
-        margin: 5px;
-    }
-}
-
-section {
-    position: absolute;
-    top: 51px;
-    left: 0;
-    right: 0;
-    bottom: 0;
-}
-
-footer {
-    display: none;
-}
 
 .A-form-new {
     width: 100%;

@@ -28,6 +28,7 @@ auth.onAuthStateChanged(user => {
         });
 
         $('header').on('click', '.a-save', event => {
+            console.log('save');
             // console.log(akakor.layout.toConfig());
         });
 

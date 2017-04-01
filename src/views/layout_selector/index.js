@@ -2,47 +2,127 @@ import { Layout } from '../layout';
 // import * as config from '../../configurations/alan:c:web.json';
 export class SelectLayoutView {
 
-    constructor(selector) {
+    constructor({$container, $tab}) {
 
-        const $selector = $(selector);
-        const config = {};
         const template = `
             <div class="A-layout-selector">
                 <h1>Select a Layout</h1>
-                <ul></ul>
+                <div class="js-private"></div>
+                <div class="js-default"></div>
             </div>
         `;
+        $container.html(template);
 
-        $selector
-            .html(template)
-            .find('.A-layout-selector')
-            .on('click', 'li', event => {
-                $selector.empty();
-                const $target = $(event.target);
-                const id = $target.data('id');
-                const layout = new Layout({
-                    selector: $selector,
-                    layout: config[id]
-                });
+        class PrivateConfig {
+            constructor({$list_container, $layout_container}) {
+                $list_container
+                    .html(this.template)
+                    .on('click', 'li', event => {
 
-                akakor.api.save({
-                    id,
-                    layout: layout.toConfig().content
-                })
+                        const $target = $(event.target);
+                        const id = $target.data('id');
 
-                $(window).on('resize', event => {
-                    layout.updateSize();
-                });
-            });
+                        akakor.api.get_configuration_private(id).then(data => {
+                            const val = data.val();
+                            const layout = new Layout({
+                                selector: $layout_container,
+                                layout: JSON.parse(val.layout),
+                                id
+                            });
+                        });
 
-        akakor.api.get_default_configurations().then(data => {
-            let html = '';
-            for (let [key, val] of Object.entries(data.val())) {
-                const layout = JSON.stringify(val.layout);
-                html += `<li data-id="${key}">${layout}</li>`;
-                config[key] = val.layout;
+                        // akakor.api.save({
+                        //     id,
+                        //     layout: layout.toConfig().content
+                        // })
+
+                        // $(window).on('resize', event => {
+                        //     layout.updateSize();
+                        // });
+
+
+                    });
+                this.$list_container = $list_container;
+                this.render();
+                this.configs = {};
             }
-            $('.A-layout-selector ul').html(html);
+            render() {
+                const pc = this;
+                akakor.api.get_configurations('private').then(data => {
+                    let html = '';
+                    for (let [key, val] of Object.entries(data.val())) {
+                        html += `<li data-id="${key}">${val.title}</li>`;
+                        pc.configs[key] = val.config;
+                    }
+                    $(pc.$list_container).find('ul').html(html);
+                });
+            }
+            get template() {
+                return `
+                    <div>
+                        <header>Private Layouts</header>
+                        <ul></ul>
+                    </div>
+                `;
+            }
+        }
+
+        class DefaultConfig {
+            constructor({$list_container, $layout_container}) {
+                $list_container
+                    .html(this.template)
+                    .on('click', 'li', event => {
+
+                        const $target = $(event.target);
+                        const id = $target.data('id');
+                        const layout = new Layout({
+                            selector: $layout_container,
+                            layout: this.configs[id],
+                            id
+                        });
+
+
+
+                        // $(window).on('resize', event => {
+                        //     layout.updateSize();
+                        // });
+
+
+                    });
+                this.$list_container = $list_container;
+                this.render();
+                this.configs = {};
+            }
+            render() {
+                const dc = this;
+                akakor.api.get_configurations('default').then(data => {
+                    let html = '';
+                    for (let [key, val] of Object.entries(data.val())) {
+                        const layout = JSON.stringify(val.layout);
+                        html += `<li data-id="${key}">${val.layout}</li>`;
+                        dc.configs[key] = val.layout;
+                    }
+                    $(dc.$list_container).find('ul').html(html);
+                });
+            }
+            get template() {
+                return `
+                    <div>
+                        <header>Default Layouts</header>
+                        <ul></ul>
+                    </div>
+                `;
+            }
+        }
+
+        new PrivateConfig({
+            $list_container: $container.find('.js-private'),
+            $layout_container: $container
+        });
+
+        new DefaultConfig({
+            $list_container: $container.find('.js-default'),
+            $layout_container: $container
         });
 
     }

@@ -28,13 +28,14 @@ export class MainTabs {
         $new_tab.insertBefore($add_tab);
         this.$contents_container.append(this.template_content(id));
         this.show_tab(id);
-        const container = this.$contents_container.find(`[data-id=${id}]`);
-        cb(container);
+        const $container = this.$contents_container.find(`[data-id=${id}]`);
+        const $tab = this.$tabs_container.find(`[data-id=${id}]`);
+        cb($container, $tab);
     }
 
     new_default_tab() {
-        this.new_tab('Untitled Layout', $el => {
-            new SelectLayoutView($el);
+        this.new_tab('Untitled Layout', ($container, $tab) => {
+            new SelectLayoutView({$container, $tab});
         });
     }
 

@@ -222,6 +222,27 @@ fieldset.vue-form-generator .form-group.error .errors span {
 body {
   margin: 0;
   padding: 0; }
+  body > header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #ccc; }
+    body > header ul {
+      margin: 0;
+      padding: 0; }
+    body > header li {
+      display: inline-block;
+      margin: 5px; }
+  body > section {
+    position: absolute;
+    top: 51px;
+    left: 0;
+    right: 0;
+    bottom: 0; }
+  body > footer {
+    display: none; }
 
 #app {
   position: fixed;
@@ -234,30 +255,6 @@ webview {
   display: inline-flex;
   width: 100%;
   height: 100%; }
-
-header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 50px;
-  background: #ccc; }
-  header ul {
-    margin: 0;
-    padding: 0; }
-  header li {
-    display: inline-block;
-    margin: 5px; }
-
-section {
-  position: absolute;
-  top: 51px;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
-footer {
-  display: none; }
 
 .A-form-new {
   width: 100%;
@@ -292,9 +289,15 @@ footer {
   right: 0;
   bottom: 0; }
 
-.A-layout-selector ul li {
-  display: inline-block;
-  margin: 20px; }
+.A-layout-selector {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0; }
+  .A-layout-selector ul li {
+    display: inline-block;
+    margin: 20px; }
 
 .A-main-tabs .a-tabs {
   background: #eee;
