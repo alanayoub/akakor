@@ -79,6 +79,7 @@ export class Layout {
         golden_layout.on('stateChanged', function () {
             akakor.api.save({
                 layout: golden_layout.toConfig().content,
+                title,
                 id
             }).then(new_id => {
                 id = new_id;

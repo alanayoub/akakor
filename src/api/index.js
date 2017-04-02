@@ -103,7 +103,7 @@ export class API {
         });
     }
 
-    save({layout, id}) {
+    save({layout, id, title='Untitled'}) {
         const api = this;
         return new Promise(resolve => {
             api.check_if_config_exists(id).then(exists => {
@@ -111,8 +111,8 @@ export class API {
                 const path = `configurations_private/${api.current_user.uid}`;
                 if (!exists) {
                     id = api.db.ref(`configurations_private/${api.current_user.uid}`).push().key;
-                    updates[`${path}/${id}/title`] = 'Untitled';
                 }
+                updates[`${path}/${id}/title`] = title;
                 updates[`${path}/${id}/layout`] = JSON.stringify(layout);
                 api.db.ref().update(updates);
                 resolve(id);

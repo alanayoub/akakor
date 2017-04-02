@@ -18,6 +18,8 @@ export class MainTabs {
             event.stopPropagation();
             const title = event.target.textContent;
             const id = $(event.target).data('id');
+            const is_default = id.startsWith('default_');
+            if (is_default) return;
             akakor.api.update_title({
                 title,
                 id
@@ -27,7 +29,7 @@ export class MainTabs {
     }
 
     new_tab(title, cb) {
-        const id = String(Math.random()).substring(2);
+        const id = `default_${String(Math.random()).substring(2)}`;
         const $new_tab = $(this.template_tabs(id, title));
         const $add_tab = this.$tabs_container.find('.a-add-tab');
         $new_tab.insertBefore($add_tab);

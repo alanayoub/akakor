@@ -69,6 +69,8 @@ export class SelectLayoutView {
                         const layout = new Layout({
                             selector: $layout_container,
                             layout: this.configs[id],
+                            title: $tab.text(),
+                            tab: $tab,
                             id
                         });
                     });
