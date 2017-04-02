@@ -16,6 +16,17 @@ function upgrade_state({layout, state}) {
     return state;
 }
 
+function is_valid_layout(layout) {
+    let type;
+    try {
+        type = layout[0].type;
+    }
+    catch (error) {
+        throw new Error('Invalid Layout. Should be either a valid golden layout configuration or a default configuration');
+    }
+    return type === 'column' || type === 'row'
+}
+
 export class Layout {
 
     constructor({selector, layout, id, title, tab, state = {}}) {
@@ -39,8 +50,7 @@ export class Layout {
         const electron = !!(window && window.process && window.process.type);
         let golden_layout;
 
-        // Default or existing private
-        if (layout[0].type === 'column') {
+        if (is_valid_layout(layout)) {
             config.content = layout;
             golden_layout = new GoldenLayout(config, selector);
         }
