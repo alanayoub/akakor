@@ -2,6 +2,9 @@
 @import '../views/layout/styles';
 
 body {
+    font-family: 'Lora', serif;
+    font-size: 14px;
+    line-height: 24px;
     margin: 0;
     padding: 0;
     > header {
@@ -9,20 +12,34 @@ body {
         top: 0;
         left: 0;
         right: 0;
-        height: 50px;
-        background: #ccc;
-        ul {
-            margin: 0;
-            padding: 0;
+        background: #000050;
+        border-bottom: 1px solid #fff;
+        > div {
+            height: 29px;
+            line-height: 29px;
         }
-        li {
-            display: inline-block;
-            margin: 5px;
+        .t-left {
+            width: 500px;
+            background: linear-gradient(to right, #2187b3 0%,#000050 100%);
+            color: #fff;
+            float: left;
+            padding: 0 5px;
+        }
+        .t-right {
+            float: right;
+            padding: 0 5px;
+        }
+        .t-logo {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        .t-user {
         }
     }
     > section {
         position: absolute;
-        top: 51px;
+        top: 30px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -30,6 +47,12 @@ body {
     > footer {
         display: none;
     }
+}
+
+h1, h2, h3 {
+    line-height: 1.4;
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
 }
 
 #app {
@@ -63,41 +86,6 @@ webview, iframe {
         max-width: 300px;
     }
 }
-
-//
-// Tabs
-//
-
-.A-main-tabs {
-    .a-tabs {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 25px;
-        li {
-            float: left;
-        }
-        .a-tab {
-            &.a-active {
-                font-weight: bold;
-                background: #fee;
-            }
-        }
-        .a-content {
-            display: none;
-        }
-    }
-    .a-contents,
-    .a-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-    }
-}
-
 
 @import '../views/layout_selector/styles';
 @import '../views/main_tabs/styles';

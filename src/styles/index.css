@@ -227,6 +227,9 @@ fieldset.vue-form-generator .form-group.error .errors span {
   height: 100%; }
 
 body {
+  font-family: 'Lora', serif;
+  font-size: 14px;
+  line-height: 24px;
   margin: 0;
   padding: 0; }
   body > header {
@@ -234,22 +237,37 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    height: 50px;
-    background: #ccc; }
-    body > header ul {
-      margin: 0;
-      padding: 0; }
-    body > header li {
-      display: inline-block;
-      margin: 5px; }
+    background: #000050;
+    border-bottom: 1px solid #fff; }
+    body > header > div {
+      height: 29px;
+      line-height: 29px; }
+    body > header .t-left {
+      width: 500px;
+      background: linear-gradient(to right, #2187b3 0%, #000050 100%);
+      color: #fff;
+      float: left;
+      padding: 0 5px; }
+    body > header .t-right {
+      float: right;
+      padding: 0 5px; }
+    body > header .t-logo {
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      font-weight: bold; }
   body > section {
     position: absolute;
-    top: 51px;
+    top: 30px;
     left: 0;
     right: 0;
     bottom: 0; }
   body > footer {
     display: none; }
+
+h1, h2, h3 {
+  line-height: 1.4;
+  font-weight: 300;
+  font-family: 'Roboto', sans-serif; }
 
 #app {
   position: fixed;
@@ -277,39 +295,19 @@ webview, iframe {
   .A-form-new fieldset.vue-form-generator .form-group {
     max-width: 300px; }
 
-.A-main-tabs .a-tabs {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 25px; }
-  .A-main-tabs .a-tabs li {
-    float: left; }
-  .A-main-tabs .a-tabs .a-tab.a-active {
-    font-weight: bold;
-    background: #fee; }
-  .A-main-tabs .a-tabs .a-content {
-    display: none; }
-.A-main-tabs .a-contents,
-.A-main-tabs .a-content {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0; }
-
 .A-layout-selector {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0; }
+  left: 0;
+  padding: 10px; }
   .A-layout-selector ul li {
     display: inline-block;
     margin: 20px; }
 
 .A-main-tabs .a-tabs {
-  background: #eee;
+  background: #c1e6f6;
   position: absolute;
   left: 0;
   right: 0;
@@ -327,12 +325,25 @@ webview, iframe {
     margin: 0 5px 0 0;
     padding: 5px;
     cursor: default; }
-.A-main-tabs .a-contents {
-  background: #ddd;
+  .A-main-tabs .a-tabs .a-tab {
+    height: 31px;
+    padding: 10px;
+    line-height: 31px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold; }
+    .A-main-tabs .a-tabs .a-tab.a-active {
+      background: #fff; }
+  .A-main-tabs .a-tabs .a-content {
+    display: none; }
+.A-main-tabs .a-contents,
+.A-main-tabs .a-content {
   position: absolute;
+  top: 0;
   left: 0;
   right: 0;
-  top: 51px;
   bottom: 0; }
+.A-main-tabs .a-contents {
+  top: 51px; }
 
 /*# sourceMappingURL=index.css.map */
