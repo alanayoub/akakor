@@ -295,6 +295,22 @@ webview, iframe {
   .A-form-new fieldset.vue-form-generator .form-group {
     max-width: 300px; }
 
+.lm_goldenlayout {
+  background: #fff; }
+
+.lm_header .lm_tab .lm_title {
+  line-height: 10px; }
+
+.lm_header .lm_tab,
+.lm_content {
+  background: #f1efee;
+  border: none; }
+
+.lm_header .lm_tab {
+  border-top-right-radius: 2px; }
+  .lm_header .lm_tab.lm_active {
+    box-shadow: none; }
+
 .A-layout-selector {
   position: absolute;
   top: 0;
@@ -302,6 +318,12 @@ webview, iframe {
   bottom: 0;
   left: 0;
   padding: 10px; }
+  .A-layout-selector table {
+    width: 200px;
+    height: 150px; }
+    .A-layout-selector table td {
+      background: #eee;
+      text-align: center; }
   .A-layout-selector ul li {
     display: inline-block;
     margin: 20px; }
@@ -321,7 +343,6 @@ webview, iframe {
   .A-main-tabs .a-tabs li {
     display: inline-block;
     list-style: none;
-    background: #fff;
     margin: 0 5px 0 0;
     padding: 5px;
     cursor: default; }
@@ -331,9 +352,32 @@ webview, iframe {
     line-height: 31px;
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
-    font-weight: bold; }
+    font-weight: bold;
+    color: #005d95;
+    background: none;
+    position: relative; }
     .A-main-tabs .a-tabs .a-tab.a-active {
       background: #fff; }
+      .A-main-tabs .a-tabs .a-tab.a-active:after {
+        content: '';
+        position: absolute;
+        top: -1px;
+        display: block;
+        left: 0;
+        right: 0;
+        background: #fff;
+        height: 2px; }
+      .A-main-tabs .a-tabs .a-tab.a-active:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        box-shadow: 10px 0 15px -10px rgba(31, 73, 125, 0.1), -10px 0 15px -10px rgba(0, 0, 0, 0.1); }
+  .A-main-tabs .a-tabs .a-add-tab {
+    font-size: 20px;
+    line-height: 17px; }
   .A-main-tabs .a-tabs .a-content {
     display: none; }
 .A-main-tabs .a-contents,

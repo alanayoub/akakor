@@ -90,7 +90,7 @@ export class Layout {
         });
 
         golden_layout.on('stackCreated', function (stack) {
-            const $html = $('<li class="t-add-tab" style="background: #fff">+</li>');
+            const $html = $('<li class="a-add-tab">+</li>');
             $html.on('click', function (event) {
                 stack.addChild({
                     id: +new Date(),

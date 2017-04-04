@@ -1,4 +1,5 @@
 import { Layout } from '../layout';
+import { array_to_table } from './util';
 // import * as config from '../../configurations/alan:c:web.json';
 export class SelectLayoutView {
 
@@ -64,7 +65,7 @@ export class SelectLayoutView {
                 $list_container
                     .html(this.template)
                     .on('click', 'li', event => {
-                        const $target = $(event.target);
+                        const $target = $(event.target).closest('li');
                         const id = $target.data('id');
                         const layout = new Layout({
                             selector: $layout_container,
@@ -84,7 +85,8 @@ export class SelectLayoutView {
                     let html = '';
                     for (let [key, val] of Object.entries(data.val())) {
                         const layout = JSON.stringify(val.layout);
-                        html += `<li data-id="${key}">${val.layout}</li>`;
+                        const html_table = array_to_table(val.layout);
+                        html += `<li data-id="${key}">${html_table}</li>`;
                         dc.configs[key] = val.layout;
                     }
                     $(dc.$list_container).find('ul').html(html);

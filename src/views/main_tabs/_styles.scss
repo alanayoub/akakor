@@ -15,7 +15,6 @@
         li {
             display: inline-block;
             list-style: none;
-            background: #fff;
             margin: 0 5px 0 0;
             padding: 5px;
             cursor: default;
@@ -27,11 +26,35 @@
             font-family: 'Roboto', sans-serif;
             font-size: 20px;
             font-weight: bold;
+            color: #005d95;
+            background: none;
+            position: relative;
             &.a-active {
                 background: #fff;
+                &:after {
+                    content: '';
+                    position: absolute;
+                    top: -1px;
+                    display: block;
+                    left: 0;
+                    right: 0;
+                    background: #fff;
+                    height: 2px;
+                }
+                &:before {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    box-shadow: 10px 0 15px -10px rgba(31, 73, 125, 0.1), -10px 0 15px -10px rgba(0, 0, 0, 0.1);
+                }
             }
         }
         .a-add-tab {
+            font-size: 20px;
+            line-height: 17px;
         }
         .a-content {
             display: none;

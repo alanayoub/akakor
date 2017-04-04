@@ -87,5 +87,27 @@ webview, iframe {
     }
 }
 
+//
+// Golden Layout
+//
+.lm_goldenlayout {
+    background: #fff;
+}
+.lm_header .lm_tab .lm_title {
+    line-height: 10px;
+}
+.lm_header .lm_tab,
+.lm_content {
+    background: #f1efee;
+    border: none;
+}
+.lm_header .lm_tab {
+    border-top-right-radius: 2px;
+    &.lm_active {
+        box-shadow: none;
+    }
+}
+
+
 @import '../views/layout_selector/styles';
 @import '../views/main_tabs/styles';
