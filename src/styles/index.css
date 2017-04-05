@@ -320,7 +320,8 @@ webview, iframe {
   padding: 10px; }
   .A-layout-selector table {
     width: 200px;
-    height: 150px; }
+    height: 150px;
+    table-layout: fixed; }
     .A-layout-selector table td {
       background: #eee;
       text-align: center; }
