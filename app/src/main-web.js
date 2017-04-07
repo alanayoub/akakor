@@ -36,14 +36,3 @@ auth.onAuthStateChanged(user => {
 
     }
 });
-
-//
-// Add mobile checkbox
-// Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Mobile Safari/537.36
-//
-
-//
-// NOTES: Add
-// * Google
-// * http://finviz.com/map.ashx?t=sec&st=
-//
