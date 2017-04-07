@@ -5,8 +5,7 @@
   "main": "./app/src/main-electron.js",
   "scripts": {
     "start": "electron app/src/main-electron.js",
-    "dev": "npm run watch-js &&  npm run watch-css",
-    "watch-electron-js": "watchify --insert-globals true ./app/src/main-electron.js --debug -o ./app/src/main-electron-build.js",
+    "dev": "npm run watch-js && npm run watch-css",
     "watch-js": "watchify --insert-globals true ./app/src/main-web.js --debug -o ./app/src/main-web-build.js",
     "watch-css": "sass --watch ./app/src/styles",
     "build": "node tasks/release.js",
