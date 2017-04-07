@@ -4,19 +4,17 @@ var BrowserWindow = electron.BrowserWindow;
 var path = require('path');
 var url = require('url');
 
-const windows = [];
-
 function createWindow({local, web}) {
 
-    const win = new BrowserWindow({
+    let win = new BrowserWindow({
         width: 2000,
         height: 1024,
         'web-preferences': {
-            'web-security': false
+            'web-security': true,
+            'allowRunningInsecureContent': false
         }
     });
     const ses = win.webContents.session;
-    const idx = windows.push(win);
 
     if (local) {
         win.loadURL(url.format({
@@ -32,7 +30,7 @@ function createWindow({local, web}) {
     ses.clearCache(() => {});
     win.webContents.openDevTools();
     win.on('closed', function () {
-        windows.splice(idx, 1);
+        win = null
     });
 
 }
@@ -46,3 +44,9 @@ app.on('window-all-closed', function () {
         app.quit();
     }
 });
+
+app.on('activate', () => {
+  if (win === null) {
+      createWindow();
+  }
+})
