@@ -6,7 +6,6 @@
   "keywords": [],
   "author": "Deep Space Software",
   "license": "UNLICENCED",
-  "devDependencies": {},
   "browserify": {
     "transform": [
       "babelify"

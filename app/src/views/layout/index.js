@@ -47,7 +47,6 @@ export class Layout {
         };
 
         const GoldenLayout = require('golden-layout');
-        const electron = !!(window && window.process && window.process.type);
         let golden_layout;
 
         if (is_valid_layout(layout)) {
@@ -62,7 +61,7 @@ export class Layout {
 
         golden_layout.registerComponent('website', function (container, state) {
             console.log(container, state);
-            if (electron) {
+            if (akakor.IS_ELECTRON) {
                 new Webview({golden_layout, container, state});
             }
             else {
