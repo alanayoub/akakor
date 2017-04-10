@@ -6,6 +6,7 @@ import $ from 'jquery';
 import { API } from './api';
 
 const api = new API();
+const bus = new Vue();
 const auth = api.auth;
 const db = api.db;
 
@@ -14,11 +15,13 @@ const WEB_ORIGIN = 'http://localhost:8081';
 const IS_ELECTRON = !!(window && window.process && window.process.type);
 const ORIGIN = IS_ELECTRON ? ELECTRON_ORIGIN : WEB_ORIGIN;
 
+
 window.$ = $;
 window.akakor = {
     db,
     auth,
     api,
+    bus,
     IS_ELECTRON,
     ORIGIN
 }

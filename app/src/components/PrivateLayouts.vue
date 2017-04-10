@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="layout in layouts">
-            <span @click.stop.prevent="load_layout()">{{ layout.val.title }}</span>
+            <span v-on:click="load_layout(layout)">{{ layout.val.title }}</span>
         </li>
     </ul>
 </template>
@@ -20,6 +20,11 @@
             return {
                 layouts,
             };
+        },
+        methods: {
+            load_layout(layout) {
+                window.akakor.bus.$emit('LAYOUT_SELECTED', layout);
+            }
         }
     }
 </script>

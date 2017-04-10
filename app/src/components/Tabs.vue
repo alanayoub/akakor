@@ -24,7 +24,7 @@
         data() {
             return {
                 tabs: [{
-                    name: "tab1",
+                    name: 'Untitled Layout',
                     id : 0,
                     isActive: true
                 }],
@@ -33,6 +33,11 @@
         },
         components: {
             HomeTab
+        },
+        created: function () {
+            window.akakor.bus.$on('LAYOUT_SELECTED', layout => {
+                console.log('LAYOUT SELECTED', layout);
+            })
         },
         ready: function () {
             this.setActive(this.tabs[0]);
@@ -53,7 +58,7 @@
             },
             openNewTab: function () {
                 var newTab = {
-                    name: 'tab' + (this.tabs.length + 1),
+                    name: `Untitled Layout ${this.tabs.length}`,
                     id: this.tabs.length,
                     isActive: true
                 };
