@@ -1,6 +1,8 @@
+import Vue from 'vue'
+import App from './App.vue'
+
 import 'babel-polyfill';
 import $ from 'jquery';
-import { MainTabs } from './views/main_tabs';
 import { API } from './api';
 
 const api = new API();
@@ -30,16 +32,12 @@ auth.onAuthStateChanged(user => {
         akakor.api.user = user;
         api.update_user();
 
-        const main_tabs = new MainTabs({
-            selector: 'body > section'
-        });
-
-        $('header').on('click', '.a-save', event => {});
-
-        $('header').on('click', '.a-signout', event => {
-            console.log('signing out');
-            auth.signOut();
+        new Vue({
+          el: '#app',
+          render: h => h(App)
         });
 
     }
 });
+
+
