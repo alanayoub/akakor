@@ -113,7 +113,9 @@
             color: #fff;
         }
         fieldset.vue-form-generator .form-group {
-            max-width: 300px;
+            max-width: 500px;
+            color: #333;
+            margin: auto;
         }
     }
 
