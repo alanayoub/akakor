@@ -3,7 +3,7 @@
         <div class="a-tabs">
             <ul>
                 <li v-for="tab in tabs" class="a-tab" :class="{'a-active': tab.isActive}">
-                    <input type="text" v-model="tab.name" data-toggle="tab" @click.stop.prevent="setActive(tab)" @blur="blur(tab)" />
+                    <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">{{ tab.name }}</span>
                 </li>
                 <li class="a-add-tab">
                     <span @click="openNewTab">+</span>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+    import $ from 'jquery';
     import HomeTab from './HomeTab.vue';
     import LayoutTab from './LayoutTab.vue';
     export default {
@@ -74,6 +75,7 @@
         },
         methods: {
             blur(tab) {
+                tab.name = this.$refs[tab.id][0].textContent;
                 const title = tab.name;
                 const id = tab.id;
                 const is_default = id.startsWith('default_');
@@ -127,18 +129,11 @@
                 padding: 5px;
                 cursor: default;
                 &.a-tab {
-                    input {
-                        position: relative;
-                        font-family: 'Roboto', sans-serif;
-                        font-size: 20px;
-                        font-weight: bold;
-                        line-height: 31px;
-                        color: #005d95;
-                        border: none;
-                        margin: 0;
-                        padding: 0;
-                        background: none;
-                    }
+                    font-family: 'Roboto', sans-serif;
+                    font-size: 20px;
+                    font-weight: bold;
+                    line-height: 31px;
+                    color: #005d95;
                     display: inline-block;
                     list-style: none;
                     margin: 0 5px 0 0;
