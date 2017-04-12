@@ -82,8 +82,8 @@ export class Layout {
                 id
             }).then(new_id => {
                 id = new_id;
-                tab.attr('data-id', id);
-                tab.text(title);
+                // tab.attr('data-id', id);
+                // tab.text(title);
                 selector.attr('data-id', id);
             });
         });

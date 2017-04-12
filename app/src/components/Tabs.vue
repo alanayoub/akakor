@@ -9,10 +9,11 @@
                     <span @click="openNewTab">+</span>
                 </li>
             </ul>
-            <div class="a-contents">
-                <div v-for="tab in tabs" class="a-content" :class="{'a-active': tab.isActive}">
-                    <HomeTab :tab="tab"></HomeTab>
-                </div>
+        </div>
+        <div class="a-contents">
+            <div v-for="tab in tabs" class="a-content" :class="{'a-active': tab.isActive}">
+                <LayoutTab v-if="tab.layout" :tab="tab"></LayoutTab>
+                <HomeTab v-else :tab="tab"></HomeTab>
             </div>
         </div>
     </div>
@@ -20,6 +21,7 @@
 
 <script>
     import HomeTab from './HomeTab.vue';
+    import LayoutTab from './LayoutTab.vue';
     export default {
         data() {
             return {
@@ -32,11 +34,18 @@
             }
         },
         components: {
-            HomeTab
+            HomeTab,
+            LayoutTab
         },
         created: function () {
             window.akakor.bus.$on('LAYOUT_SELECTED', layout => {
-                console.log('LAYOUT SELECTED', layout);
+                const active_tab = this.tabs.forEach(tab => {
+                    if (tab.isActive) {
+                        tab.id = layout.key;
+                        tab.name = layout.val.title;
+                        tab.layout = layout.val.layout;
+                    }
+                });
             })
         },
         ready: function () {
@@ -135,22 +144,22 @@
                 }
             }
         }
-        .a-contents,
-        .a-content {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-        }
-        .a-contents {
-            top: 51px;
-        }
-        .a-content {
-            display: none;
-            &.a-active {
-                display: block;
-            }
+    }
+    .a-contents,
+    .a-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+    .a-contents {
+        top: 51px;
+    }
+    .a-content {
+        display: none;
+        &.a-active {
+            display: block;
         }
     }
 </style>
