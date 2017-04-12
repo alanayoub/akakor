@@ -132,17 +132,17 @@
                     font-family: 'Roboto', sans-serif;
                     font-size: 20px;
                     font-weight: bold;
-                    line-height: 31px;
+                    line-height: 41px;
                     color: #005d95;
                     display: inline-block;
                     list-style: none;
                     margin: 0 5px 0 0;
-                    padding: 5px;
                     cursor: default;
-                    height: 31px;
-                    padding: 10px;
                     background: none;
                     position: relative;
+                    span {
+                        padding: 10px;
+                    }
                     &.a-active {
                         background: #fff;
                         &:after {
