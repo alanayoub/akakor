@@ -23,7 +23,7 @@
         },
         methods: {
             load_layout(layout) {
-                window.akakor.bus.$emit('LAYOUT_SELECTED', layout);
+                window.akakor.bus.$emit('PRIVATE_LAYOUT_SELECTED', layout);
             }
         }
     }

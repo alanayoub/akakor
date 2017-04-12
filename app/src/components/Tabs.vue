@@ -3,7 +3,7 @@
         <div class="a-tabs">
             <ul>
                 <li v-for="tab in tabs" class="a-tab" :class="{'a-active': tab.isActive}">
-                    <span data-toggle="tab" @click.stop.prevent="setActive(tab)">{{ tab.name }}</span>
+                    <input type="text" v-model="tab.name" data-toggle="tab" @click.stop.prevent="setActive(tab)" @blur="blur(tab)" />
                 </li>
                 <li class="a-add-tab">
                     <span @click="openNewTab">+</span>
@@ -27,7 +27,7 @@
             return {
                 tabs: [{
                     name: 'Untitled Layout',
-                    id : 0,
+                    id : `default_${+new Date}`,
                     isActive: true
                 }],
                 activeTab: {}
@@ -37,8 +37,8 @@
             HomeTab,
             LayoutTab
         },
-        created: function () {
-            window.akakor.bus.$on('LAYOUT_SELECTED', layout => {
+        created() {
+            window.akakor.bus.$on('PRIVATE_LAYOUT_SELECTED', layout => {
                 const active_tab = this.tabs.forEach(tab => {
                     if (tab.isActive) {
                         tab.id = layout.key;
@@ -48,35 +48,39 @@
                 });
             })
         },
-        ready: function () {
+        ready() {
             this.setActive(this.tabs[0]);
         },
         methods: {
-            setActive: function (tab) {
-                var self = this;
+            blur(tab) {
+                const title = tab.name;
+                const id = tab.id;
+                const is_default = id.startsWith('default_');
+                if (is_default) return;
+                window.akakor.api.update_title({
+                    title,
+                    id
+                });
+            },
+            setActive(tab) {
                 tab.isActive = true;
                 this.activeTab = tab;
-                this.tabs.forEach(function (tab) {
-                    /* console.log("TAB => " + tab); */
-                    /* console.log("activeTab id => " + self.activeTab.id); */
-                    /* console.log("tab id=" + tab.id); */
-                    if (tab.id !== self.activeTab.id) {
+                this.tabs.forEach(tab => {
+                    if (tab.id !== this.activeTab.id) {
                         tab.isActive = false;
                     }
                 });
             },
-            openNewTab: function () {
-                var newTab = {
+            openNewTab() {
+                const newTab = {
                     name: `Untitled Layout ${this.tabs.length}`,
-                    id: this.tabs.length,
+                    id: `default_${+new Date}`,
                     isActive: true
                 };
                 this.tabs.push(newTab);
                 this.setActive(newTab);
             },
-            closeTab: function () {
-                console.log("### CLOSE!");
-            }
+            closeTab() {}
         }
     }
 </script>
@@ -101,6 +105,18 @@
                 padding: 5px;
                 cursor: default;
                 &.a-tab {
+                    input {
+                        position: relative;
+                        font-family: 'Roboto', sans-serif;
+                        font-size: 20px;
+                        font-weight: bold;
+                        line-height: 31px;
+                        color: #005d95;
+                        border: none;
+                        margin: 0;
+                        padding: 0;
+                        background: none;
+                    }
                     display: inline-block;
                     list-style: none;
                     margin: 0 5px 0 0;
@@ -108,11 +124,6 @@
                     cursor: default;
                     height: 31px;
                     padding: 10px;
-                    line-height: 31px;
-                    font-family: 'Roboto', sans-serif;
-                    font-size: 20px;
-                    font-weight: bold;
-                    color: #005d95;
                     background: none;
                     position: relative;
                     &.a-active {
