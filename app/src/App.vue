@@ -108,12 +108,12 @@
             padding: 20px;
         }
         fieldset {
-            margin: 20px;
+            margin: 20px auto;
+            max-width: 500px;
             border: none;
             color: #fff;
         }
         fieldset.vue-form-generator .form-group {
-            max-width: 500px;
             color: #333;
             margin: auto;
         }
