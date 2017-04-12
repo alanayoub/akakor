@@ -76,15 +76,15 @@ export class Layout {
         golden_layout.on('initialised', function () {});
 
         golden_layout.on('stateChanged', function () {
-            akakor.api.save({
+            const config = {
                 layout: golden_layout.toConfig().content,
                 title,
                 id
-            }).then(new_id => {
-                id = new_id;
-                // tab.attr('data-id', id);
-                // tab.text(title);
-                selector.attr('data-id', id);
+            }
+            akakor.api.save(config).then(new_id => {
+                window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
+                    id: new_id
+                }));
             });
         });
 
