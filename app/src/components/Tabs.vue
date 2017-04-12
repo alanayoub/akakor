@@ -26,9 +26,10 @@
         data() {
             return {
                 tabs: [{
-                    name: 'Untitled Layout',
+                    name: 'Untitled',
                     id : `default_${+new Date}`,
-                    isActive: true
+                    isActive: true,
+                    layout: false
                 }],
                 activeTab: {}
             }
@@ -38,9 +39,18 @@
             LayoutTab
         },
         created() {
+            window.akakor.bus.$on('DEFAULT_LAYOUT_SELECTED', layout => {
+                const active_tab = this.tabs.forEach(tab => {
+                    if (tab.isActive) {
+                        tab.default = true;
+                        tab.layout = layout.val.layout;
+                    }
+                });
+            })
             window.akakor.bus.$on('PRIVATE_LAYOUT_SELECTED', layout => {
                 const active_tab = this.tabs.forEach(tab => {
                     if (tab.isActive) {
+                        tab.private = true;
                         tab.id = layout.key;
                         tab.name = layout.val.title;
                         tab.layout = layout.val.layout;
@@ -73,7 +83,7 @@
             },
             openNewTab() {
                 const newTab = {
-                    name: `Untitled Layout ${this.tabs.length}`,
+                    name: `Untitled`,
                     id: `default_${+new Date}`,
                     isActive: true
                 };

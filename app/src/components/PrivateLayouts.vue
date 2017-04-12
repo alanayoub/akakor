@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="layout in layouts">
-            <span v-on:click="load_layout(layout)">{{ layout.val.title }}</span>
+            <span @click="load_layout(layout)">{{ layout.val.title }}</span>
         </li>
     </ul>
 </template>
@@ -18,7 +18,7 @@
                 }
             });
             return {
-                layouts,
+                layouts
             };
         },
         methods: {

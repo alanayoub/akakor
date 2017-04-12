@@ -1,7 +1,7 @@
 <template>
     <ul>
         <li v-for="layout in layouts">
-            <span @click.stop.prevent="load_layout()" v-html=layout.html_table></span>
+            <span @click="load_layout(layout)" v-html=layout.html_table></span>
         </li>
     </ul>
 </template>
@@ -65,8 +65,13 @@
                 }
             });
             return {
-                layouts,
+                layouts
             };
+        },
+        methods: {
+            load_layout(layout) {
+                window.akakor.bus.$emit('DEFAULT_LAYOUT_SELECTED', layout);
+            }
         }
     }
 </script>

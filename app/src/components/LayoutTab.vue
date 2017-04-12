@@ -14,21 +14,31 @@
         mounted() {
             const vm = this;
             const $container = $(this.$el);
-
             const id = this.tab.id;
-
-            akakor.api.get_configuration_private(id).then(data => {
+            const is_private = this.tab.private;
+            if (is_private) {
+                akakor.api.get_configuration_private(id).then(data => {
+                    $container.empty();
+                    const val = data.val();
+                    new Layout({
+                        selector: $container,
+                        layout: JSON.parse(val.layout),
+                        title: val.title,
+                        tab: 'hmm, fix this',
+                        id
+                    });
+                });
+            }
+            else {
                 $container.empty();
-                const val = data.val();
-                const layout = new Layout({
+                new Layout({
                     selector: $container,
-                    layout: JSON.parse(val.layout),
-                    title: val.title,
+                    layout: this.tab.layout,
+                    title: this.tab.name,
                     tab: 'hmm, fix this',
                     id
                 });
-            });
-
+            }
         }
     }
 </script>
