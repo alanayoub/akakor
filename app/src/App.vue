@@ -32,7 +32,7 @@
     /* @import './lib/vue-form-generator/styles'; */
     /* @import '../views/layout/styles'; */
     body {
-        font-family: 'Lora', serif;
+        font-family: 'Lato', sans-serif;
         font-size: 14px;
         line-height: 24px;
         margin: 0;
@@ -114,6 +114,7 @@
             color: #fff;
         }
         fieldset.vue-form-generator .form-group {
+            max-width: 500px!important;
             color: #333;
             margin: auto;
         }

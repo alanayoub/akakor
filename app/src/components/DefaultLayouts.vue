@@ -31,7 +31,7 @@
 
         function build_table(arr, dir) {
             let used = {};
-            let result = '<table>';
+            let result = '<table class="T-layout-table">';
             arr.forEach(row => {
                 result += '<tr>';
                 row.split('').forEach(cell => {
@@ -76,5 +76,22 @@
     }
 </script>
 
+<style>
+    .T-layout-table {
+        width: 200px;
+        height: 150px;
+        table-layout: fixed;
+    }
+    .T-layout-table td {
+        background: #eee;
+        text-align: center;
+        color: #aaa;
+    }
+</style>
+
 <style scoped>
+    li {
+        display: inline-block;
+        margin: 20px;
+    }
 </style>
