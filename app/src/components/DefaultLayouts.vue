@@ -53,7 +53,14 @@
     export default {
         data() {
             const layouts = [];
-            akakor.api.get_configurations('default').then(data => {
+            return {
+                layouts
+            };
+        },
+        created() {
+            const vm = this;
+            akakor.api.get_configurations('default', function get_default_configs(data) {
+                const layouts = [];
                 for (let [key, val] of Object.entries(data.val())) {
                     const layout = JSON.stringify(val.layout);
                     const html_table = array_to_table(val.layout);
@@ -63,10 +70,8 @@
                         html_table
                     });
                 }
+                vm.layouts = layouts;
             });
-            return {
-                layouts
-            };
         },
         methods: {
             load_layout(layout) {

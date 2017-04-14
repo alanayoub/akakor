@@ -6,7 +6,7 @@
                     <h1>Private Layouts</h1>
                     <PrivateLayouts></PrivateLayouts>
                     <h1>Public Layouts</h1>
-                    <div>pub</div>
+                    <div>Comming Soon</div>
                 </div>
             </div>
             <div class="flex-row-item">
@@ -20,6 +20,14 @@
                     <h1>News</h1>
                     <div>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis turpis ut libero pretium egestas vitae eu lorem. Donec eu nunc tincidunt, malesuada purus sed, vehicula neque. Integer sit amet erat nisl. Cras quis turpis euismod, maximus velit quis, malesuada sapien. Phasellus sodales massa vel nibh gravida, a vestibulum purus commodo. Cras pulvinar odio maximus, fringilla lorem ut, convallis ipsum. Donec eget diam placerat, consectetur metus a, auctor eros. Sed vulputate mattis pulvinar
+                    </div>
+                    <h1>Feedback</h1>
+                    <div>
+                        <div>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi quis turpis ut libero pretium egestas vitae eu lorem.
+                        </div>
+                        <textarea></textarea><br>
+                        <input type="submit">
                     </div>
                 </div>
             </div>

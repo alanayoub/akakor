@@ -28,23 +28,30 @@ export class API {
         return firebase.auth();
     }
 
-    get_configurations(type) {
+    //
+    // Get a list of configurations, private or default
+    // depending on paramater provided
+    //
+    get_configurations(type, callback) {
         const api = this;
         let result;
         if (type === 'private') {
             result = api.db
                 .ref(`configurations_${type}`)
                 .child(api.current_user.uid)
-                .once('value');
+                .on('value', callback);
         }
         if (type === 'default') {
             result = api.db
                 .ref(`configurations_${type}`)
-                .once('value');
+                .on('value', callback);
         }
         return result;
     }
 
+    //
+    // Get a private configuration
+    //
     get_configuration_private(id) {
         const api = this;
         return api.db
@@ -52,29 +59,10 @@ export class API {
             .once('value');
     }
 
-    check_if_user_exists() {
-        const api = this;
-        return api.db
-            .ref('users')
-            .child(api.current_user.uid)
-            .once('value')
-            .then(data => {
-                return Promise.resolve(data.exists());
-            });
-    }
-
-    check_if_config_exists(id) {
-        const api = this;
-        return api.db
-            .ref('configurations_private')
-            .child(api.current_user.uid)
-            .child(id)
-            .once('value')
-            .then(data => {
-                return Promise.resolve(data.exists());
-            });
-    }
-
+    //
+    // If the current user exists update their credentials
+    // otherwise create a new user
+    //
     update_user() {
         const api = this;
         api.check_if_user_exists().then(exists => {
@@ -89,6 +77,9 @@ export class API {
         });
     }
 
+    //
+    // Update a configurate title
+    //
     update_title({id, title}) {
         const api = this;
         return new Promise(resolve => {
@@ -103,6 +94,9 @@ export class API {
         });
     }
 
+    //
+    // Save a configuration
+    //
     save({layout, id, title='Untitled'}) {
         const api = this;
         return new Promise(resolve => {
@@ -118,6 +112,43 @@ export class API {
                 resolve(id);
             });
         });
+    }
+
+    //
+    // Delete a configuration
+    //
+    delete_configuration({id}) {
+        const api = this;
+        api.db.ref(`configurations_private/${api.current_user.uid}/${id}`).remove();
+    }
+
+    //
+    // Check if the current user exists
+    //
+    check_if_user_exists() {
+        const api = this;
+        return api.db
+            .ref('users')
+            .child(api.current_user.uid)
+            .once('value')
+            .then(data => {
+                return Promise.resolve(data.exists());
+            });
+    }
+
+    //
+    // Check if a configuration exists
+    //
+    check_if_config_exists(id) {
+        const api = this;
+        return api.db
+            .ref('configurations_private')
+            .child(api.current_user.uid)
+            .child(id)
+            .once('value')
+            .then(data => {
+                return Promise.resolve(data.exists());
+            });
     }
 
 }
