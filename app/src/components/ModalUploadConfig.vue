@@ -12,7 +12,7 @@
 </template>
 
 <script>
-    import VueFormGenerator from "vue-form-generator/dist/vfg-core.js";
+    import VueFormGenerator from 'vue-form-generator/dist/vfg-core.js';
     import Modal from './Modal.vue';
     export default {
         data() {
@@ -20,35 +20,33 @@
             return {
                 show: false,
                 model: {
-                    id: 1,
-                    title: "Example",
-                    description: "https://example.com",
-                    update: Infinity
+                    title: 'test',
+                    description: ''
                 },
                 schema: {
                     fields: [
                         {
-                            type: "input",
-                            inputType: "text",
-                            label: "Title",
-                            model: "title",
-                            styleClasses: "a-title"
+                            type: 'input',
+                            inputType: 'text',
+                            label: 'Title',
+                            model: 'title',
+                            styleClasses: 'a-title'
                         },
                         {
-                            type: "input",
-                            inputType: "textarea",
-                            label: "Description",
-                            model: "description",
-                            placeholder: "Description",
+                            type: 'textArea',
+                            inputType: 'textarea',
+                            label: 'Description',
+                            model: 'description',
+                            placeholder: 'Description',
                             rows: 4,
                             max: 10000,
-                            styleClasses: "a-description"
+                            styleClasses: 'a-description'
                         },
                         {
                             type: 'submit',
                             buttonText: 'Cancel',
                             validateBeforeSubmit: false,
-                            styleClasses: "a-submit-cancel",
+                            styleClasses: 'a-submit-cancel',
                             onSubmit(event) {
                                 vm.close();
                             }
@@ -57,9 +55,9 @@
                             type: 'submit',
                             buttonText: 'Upload Copy',
                             validateBeforeSubmit: true,
-                            styleClasses: "a-submit-upload",
+                            styleClasses: 'a-submit-upload',
                             onSubmit(event) {
-                                vm.upload_config();
+                                vm.upload_config(event);
                             }
                         },
                     ]
@@ -75,8 +73,10 @@
             'vue-form-generator': VueFormGenerator.component
         },
         created(layout) {
-            window.akakor.bus.$on('SHOW_UPLOAD_DIALOG', layout => {
-                this.layout = layout;
+            window.akakor.bus.$on('SHOW_UPLOAD_DIALOG', config => {
+                this.config = config;
+                this.model.title = config.val.title;
+                this.model.description = config.val.description || '';
                 this.show = true;
             });
         },
@@ -85,9 +85,11 @@
                 console.log('close');
                 this.show = false;
             },
-            upload_config() {
-                console.log('upload config');
-                // window.akakor.api.delete_configuration({id: this.layout.key});
+            upload_config(event) {
+                const vm = this;
+                vm.config.val.title = event.title;
+                vm.config.val.description = event.description;
+                window.akakor.api.create_public_copy({config: vm.config.val});
                 this.close();
             }
         }

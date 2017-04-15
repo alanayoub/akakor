@@ -46,7 +46,30 @@ export class API {
                 .ref(`configurations_${type}`)
                 .on('value', callback);
         }
+        if (type === 'public') {
+            // api.db.ref('configurations_public').orderByChild('upvote_count').limitToFirst(100);
+        }
         return result;
+    }
+
+    //
+    // Create a new public copy of a config
+    //
+    create_public_copy({config, callback}) {
+        const api = this;
+        return new Promise(resolve => {
+            const updates = {};
+            const path = `configurations_public`;
+            const id = api.db.ref(`configurations_public`).push().key;
+            updates[`${path}/${id}/author`] = api.current_user.uid;
+            updates[`${path}/${id}/title`] = config.title;
+            updates[`${path}/${id}/description`] = config.description;
+            updates[`${path}/${id}/date_created`] = +new Date;
+            updates[`${path}/${id}/version`] = 1;
+            updates[`${path}/${id}/layout`] = config.layout;
+            api.db.ref().update(updates);
+            resolve(id);
+        });
     }
 
     //
