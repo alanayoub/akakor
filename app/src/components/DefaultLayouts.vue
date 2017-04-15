@@ -85,18 +85,23 @@
     .T-layout-table {
         width: 200px;
         height: 150px;
-        table-layout: fixed;
     }
     .T-layout-table td {
-        background: #eee;
+        background: #eefaff;
         text-align: center;
-        color: #aaa;
+        color: #333;
     }
+
 </style>
 
 <style scoped>
     li {
         display: inline-block;
-        margin: 20px;
+        margin: 10px;
+        padding: 5px;
+        background: #c1e6f6;
+    }
+    li:hover {
+        background: #2187b3;
     }
 </style>

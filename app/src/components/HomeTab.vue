@@ -68,6 +68,12 @@
     }
     .flex-row-item {
         flex: 1 100%;
+        border-right: 1px solid #eee;
+        padding-right: 10px;
+    }
+    .flex-row-item:last-child {
+        border-right: none;
+        padding-right: none;
     }
     .flex-column {
         display: flex;
