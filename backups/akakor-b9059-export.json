@@ -1,0 +1,73 @@
+{
+  "configurations_default" : {
+    "01" : {
+      "layout" : [ "01" ]
+    },
+    "02" : {
+      "layout" : [ "012" ]
+    },
+    "03" : {
+      "layout" : [ "0123" ]
+    },
+    "04" : {
+      "layout" : [ "01", "23" ]
+    },
+    "05" : {
+      "layout" : [ "012", "345" ]
+    },
+    "06" : {
+      "layout" : [ "0123", "4567" ]
+    },
+    "07" : {
+      "layout" : [ "012", "012", "012", "034", "034", "034", "555" ]
+    },
+    "08" : {
+      "layout" : [ "01112", "01112", "01112", "33333" ]
+    },
+    "09" : {
+      "layout" : [ "000123", "000456", "000789" ]
+    },
+    "10" : {
+      "layout" : [ "012233", "012233", "014455", "014455", "666666" ]
+    }
+  },
+  "configurations_private" : {
+    "VMwanOTB2tRqcNpndo1IXlJwqWg1" : {
+      "-KgfFVCTLI2KwTdfdCjt" : {
+        "layout" : "[{\"type\":\"row\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"height\":100,\"content\":[{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"width\":13.425535472746427,\"content\":[{\"id\":1491079485755,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"$BTC Community Bankers Trust Corporation stock and investing information on StockTwits (BTC)\",\"componentState\":{\"title\":\"$BTC Community Bankers Trust Corporation stock and investing information on StockTwits (BTC)\",\"url\":\"https://stocktwits.com/symbol/BTC\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"width\":13.678251434586361,\"content\":[{\"id\":1491080200052,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"https://mobile.twitter.com/search?q=bitcoin\",\"componentState\":{\"title\":\"https://mobile.twitter.com/search?q=bitcoin\",\"url\":\"https://mobile.twitter.com/search?q=bitcoin\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"column\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"width\":58.37746525678327,\"content\":[{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"width\":100,\"height\":44.60567823343848,\"content\":[{\"id\":1491079815645,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"BTCUSD - TradingView\",\"componentState\":{\"title\":\"BTCUSD - TradingView\",\"url\":\"https://www.tradingview.com/chart/cbhMtUG5/\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"row\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"height\":55.39432176656152,\"content\":[{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"height\":50.29542097488922,\"width\":64.83023702754645,\"content\":[{\"id\":1491079899880,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"Crypto - Google Sheets\",\"componentState\":{\"title\":\"Crypto - Google Sheets\",\"url\":\"https://docs.google.com/spreadsheets/d/1bgOL0Md47puF0lU8hrUa6XcEqS2_YUyCQfNPKVQrE6k/edit#gid=0\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"width\":35.169762972453555,\"content\":[{\"id\":1491079936713,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"MarketWatch: Stock Market News - Financial News\",\"componentState\":{\"title\":\"MarketWatch: Stock Market News - Financial News\",\"url\":\"http://www.marketwatch.com/\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]}]}]},{\"type\":\"column\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"width\":14.518747835883916,\"content\":[{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"height\":24.605678233438486,\"content\":[{\"id\":1491079980515,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"Live TV - Bloomberg\",\"componentState\":{\"title\":\"Live TV - Bloomberg\",\"url\":\"https://www.bloomberg.com/live/us\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"height\":75.39432176656152,\"content\":[{\"id\":1491079434663,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"Telegram Web\",\"componentState\":{\"title\":\"Telegram Web\",\"url\":\"https://web.telegram.org/#/im\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]}]}]}]",
+        "title" : "Electron"
+      },
+      "-KgijfFpVFXo4K6a5OT6" : {
+        "layout" : "[{\"type\":\"row\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"height\":100,\"content\":[{\"type\":\"stack\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":1,\"width\":26.912691269126913,\"content\":[{\"id\":\"test-4\",\"type\":\"component\",\"width\":33.33333333333333,\"height\":42.857142857142854,\"title\":\"default\",\"componentName\":\"default\",\"componentState\":{\"url\":\"\",\"title\":\"\",\"id\":\"test-4\"},\"isClosable\":true,\"reorderEnabled\":true},{\"id\":1491378146232,\"type\":\"component\",\"componentName\":\"default\",\"componentState\":{\"title\":\"\",\"url\":\"\"},\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"default\"}]},{\"type\":\"stack\",\"width\":26.392639263926394,\"height\":85.71428571428571,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":\"test-1\",\"type\":\"component\",\"width\":33.33333333333333,\"height\":85.71428571428571,\"title\":\"default\",\"componentName\":\"default\",\"componentState\":{\"url\":\"\",\"title\":\"\",\"id\":\"test-1\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"column\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"width\":46.69466946694669,\"content\":[{\"type\":\"stack\",\"width\":33.33333333333333,\"height\":44.047619047619044,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":1491375722170,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"S&P 500 Map\",\"componentState\":{\"title\":\"S&P 500 Map\",\"url\":\"http://finviz.com/map.ashx?t=sec&st=\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"width\":33.33333333333333,\"height\":55.952380952380956,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":1491378120212,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"Bitstamp BTC/USD Charts - BitcoinWisdom\",\"componentState\":{\"title\":\"Bitstamp BTC/USD Charts - BitcoinWisdom\",\"url\":\"https://bitcoinwisdom.com/markets/bitstamp/btcusd\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]}]}]}]",
+        "title" : "Trading"
+      },
+      "-KhgyD58Md9YrGA-Ubzn" : {
+        "layout" : "[{\"type\":\"row\",\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"content\":[{\"type\":\"stack\",\"width\":33.33333333333333,\"height\":100,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":1492182093427,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"Crypto News\",\"componentState\":{\"title\":\"Crypto News\",\"url\":\"http://www.coindesk.com/category/news/\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"width\":33.33333333333333,\"height\":100,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":1492182010063,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"BTC Price\",\"componentState\":{\"title\":\"BTC Price\",\"url\":\"http://www.coindesk.com/price/\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]},{\"type\":\"stack\",\"width\":33.33333333333333,\"height\":100,\"isClosable\":true,\"reorderEnabled\":true,\"title\":\"\",\"activeItemIndex\":0,\"content\":[{\"id\":1492182043060,\"type\":\"component\",\"componentName\":\"website\",\"title\":\"ETH Price\",\"componentState\":{\"title\":\"ETH Price\",\"url\":\"http://www.coindesk.com/ethereum-price/\",\"update\":\"\"},\"isClosable\":true,\"reorderEnabled\":true}]}]}]",
+        "title" : "3 Split Test"
+      }
+    }
+  },
+  "configurations_public" : {
+    "01" : {
+      "author" : 35433,
+      "description" : "desc goes here",
+      "layout" : "{foo: 'bar'}",
+      "title" : "public test",
+      "version" : 1
+    }
+  },
+  "configurations_public_votes" : {
+    "cid" : {
+      "uid" : true
+    }
+  },
+  "users" : {
+    "VMwanOTB2tRqcNpndo1IXlJwqWg1" : {
+      "displayName" : "Alan Ayoub",
+      "email" : "alanayoub@gmail.com",
+      "photoURL" : "https://lh5.googleusercontent.com/-QynTwRWs75A/AAAAAAAAAAI/AAAAAAAABK4/jfR5fqgZgLQ/photo.jpg",
+      "providerId" : "google.com",
+      "uid" : "110948233713670322585"
+    }
+  }
+}

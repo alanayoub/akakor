@@ -48,6 +48,9 @@
 </script>
 
 <style scoped>
+    ul {
+        margin: 0;
+    }
     li {
         position: relative;
         margin: 2px 0;
