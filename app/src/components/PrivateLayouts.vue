@@ -1,21 +1,28 @@
 <template>
-    <ul>
-        <li v-for="layout in layouts">
-            <div class="a-text" @click="load_layout(layout)">
-                <span>{{ layout.val.title }}</span>
-            </div>
-            <div class="a-delete" title="Delete Layout" @click="delete_layout(layout)">X</div>
-        </li>
-    </ul>
+    <div>
+        <ul>
+            <li v-for="layout in layouts">
+                <div class="a-text" @click="load_layout(layout)">
+                    <span>{{ layout.val.title }}</span>
+                </div>
+                <div class="a-delete" title="Delete Layout" @click="delete_dialog(layout)">X</div>
+            </li>
+        </ul>
+        <ModalDeleteConfig></ModalDeleteConfig>
+    </div>
 </template>
 
 <script>
+    import ModalDeleteConfig from './ModalDeleteConfig.vue';
     export default {
         data() {
             const layouts = [];
             return {
                 layouts
             };
+        },
+        components: {
+            ModalDeleteConfig
         },
         created() {
             const vm = this;
@@ -30,11 +37,11 @@
             });
         },
         methods: {
+            delete_dialog(layout) {
+                window.akakor.bus.$emit('SHOW_DELETE_DIALOG', layout);
+            },
             load_layout(layout) {
                 window.akakor.bus.$emit('PRIVATE_LAYOUT_SELECTED', layout);
-            },
-            delete_layout(layout) {
-                window.akakor.api.delete_configuration({id: layout.key});
             }
         }
     }
@@ -56,6 +63,9 @@
     li:hover .a-delete {
         display: block;
     }
+    li:hover span {
+        border-bottom: none;
+    }
     li > div {
         padding: 5px;
     }
@@ -63,6 +73,9 @@
         position: absolute;
         left: 0;
         right: 30px;
+    }
+    .a-text span {
+        border-bottom: 1px solid;
     }
     .a-delete {
         display: none;
