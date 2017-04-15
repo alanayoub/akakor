@@ -5,14 +5,17 @@
                 <div class="a-text" @click="load_layout(layout)">
                     <span>{{ layout.val.title }}</span>
                 </div>
+                <div class="a-upload" title="Upload Layout" @click="upload_dialog(layout)">U</div>
                 <div class="a-delete" title="Delete Layout" @click="delete_dialog(layout)">X</div>
             </li>
         </ul>
+        <ModalUploadConfig></ModalUploadConfig>
         <ModalDeleteConfig></ModalDeleteConfig>
     </div>
 </template>
 
 <script>
+    import ModalUploadConfig from './ModalUploadConfig.vue';
     import ModalDeleteConfig from './ModalDeleteConfig.vue';
     export default {
         data() {
@@ -22,6 +25,7 @@
             };
         },
         components: {
+            ModalUploadConfig,
             ModalDeleteConfig
         },
         created() {
@@ -40,6 +44,9 @@
             delete_dialog(layout) {
                 window.akakor.bus.$emit('SHOW_DELETE_DIALOG', layout);
             },
+            upload_dialog(layout) {
+                window.akakor.bus.$emit('SHOW_UPLOAD_DIALOG', layout);
+            },
             load_layout(layout) {
                 window.akakor.bus.$emit('PRIVATE_LAYOUT_SELECTED', layout);
             }
@@ -50,6 +57,7 @@
 <style scoped>
     ul {
         margin: 0;
+        padding: 0;
     }
     li {
         position: relative;
@@ -63,6 +71,7 @@
         background: #2186b3;
         color: #fff;
     }
+    li:hover .a-upload,
     li:hover .a-delete {
         display: block;
     }
@@ -79,6 +88,24 @@
     }
     .a-text span {
         border-bottom: 1px solid;
+    }
+    .a-upload {
+        display: none;
+        background: #000050;
+        float: right;
+        width: 10px;
+        text-align: center;
+        height: 10px;
+        position: relative;
+        top: 7px;
+        right: 5px;
+        color: #fff;
+        line-height: 10px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .a-upload:hover {
+        background: #fff;
     }
     .a-delete {
         display: none;
