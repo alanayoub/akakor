@@ -39,7 +39,7 @@
         transition: opacity .3s ease;
     }
     .modal-container {
-        width: 300px;
+        width: 500px;
         margin: 40px auto 0;
         padding: 20px 30px;
         background-color: #fff;
@@ -51,6 +51,7 @@
     .modal-header h3 {
         margin-top: 0;
         color: #42b983;
+        font-size: 22px;
     }
     .modal-body {
         margin: 20px 0;

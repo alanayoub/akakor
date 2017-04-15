@@ -140,4 +140,13 @@
             box-shadow: none;
         }
     }
+
+    //
+    // Vue form generator
+    //
+    .vue-form-generator {
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
 </style>
