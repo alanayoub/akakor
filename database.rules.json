@@ -1,0 +1,24 @@
+{
+  "rules": {
+    "configurations_default": {
+      ".read": true
+    },
+    "configurations_private": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
+    },
+    "configurations_public": {
+      ".indexOn": ["title", "description"],
+      ".read": true,
+      ".write": true,
+    },
+    "users": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
+    }
+  }
+}
