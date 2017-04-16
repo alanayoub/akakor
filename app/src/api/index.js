@@ -133,8 +133,9 @@ export class API {
                 if (!exists) {
                     id = api.db.ref(`configurations_private/${api.current_user.uid}`).push().key;
                 }
+                layout = typeof layout === 'string' ? layout : JSON.stringify(layout);
                 updates[`${path}/${id}/title`] = title;
-                updates[`${path}/${id}/layout`] = JSON.stringify(layout);
+                updates[`${path}/${id}/layout`] = layout;
                 api.db.ref().update(updates);
                 resolve(id);
             });

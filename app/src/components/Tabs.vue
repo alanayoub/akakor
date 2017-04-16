@@ -58,6 +58,19 @@
                     }
                 });
             })
+            window.akakor.bus.$on('PUBLIC_LAYOUT_SELECTED', layout => {
+                const id = 0; // dummy id that doesnt exist
+                const config = {
+                    layout: layout.val.layout,
+                    title: layout.val.title,
+                    id
+                }
+                window.akakor.api.save(config).then(new_id => {
+                    window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
+                        id: new_id
+                    }));
+                });
+            })
             window.akakor.bus.$on('NEW_LAYOUT_CREATED', (id, data) => {
                 this.tabs.forEach(tab => {
                     if (tab.id === id) {
