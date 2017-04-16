@@ -5,7 +5,9 @@
             <div class="t-logo">Nebula</div>
         </div>
         <div class="t-right">
-            <div class="t-user">alanayoub@gmail.com</div>
+            <div class="t-user">
+                <img :src="photo" alt="User Photo" />
+            </div>
         </div>
     </header>
     <section>
@@ -19,7 +21,16 @@
     import Tabs from './components/Tabs.vue';
     export default {
         data() {
-            return {}
+            return {
+                email: '',
+                photo: ''
+            }
+        },
+        created() {
+            const vm = this;
+            const api = window.akakor.api;
+            vm.photo = api.current_user.photoURL;
+            vm.email = api.current_user.email;
         },
         components: {
             Tabs
@@ -29,8 +40,6 @@
 </script>
 
 <style lang="scss">
-    /* @import './lib/vue-form-generator/styles'; */
-    /* @import '../views/layout/styles'; */
     body {
         font-family: 'Lato', sans-serif;
         font-size: 14px;
@@ -119,6 +128,22 @@
             margin: auto;
         }
     }
+
+    //
+    // Header
+    //
+    .t-user img {
+        width: 40px;
+        height: 40px;
+        position: relative;
+        top: 14px;
+        border-radius: 2px;
+        z-index: 23;
+        border: 2px solid #fff;
+        right: 4px;
+    }
+
+
 
     //
     // Golden Layout
