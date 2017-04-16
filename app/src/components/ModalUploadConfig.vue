@@ -82,7 +82,6 @@
         },
         methods: {
             close() {
-                console.log('close');
                 this.show = false;
             },
             upload_config(event) {

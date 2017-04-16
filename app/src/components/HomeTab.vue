@@ -6,7 +6,7 @@
                     <h1>Private Layouts</h1>
                     <PrivateLayouts></PrivateLayouts>
                     <h1>Public Layouts</h1>
-                    <div>Comming Soon</div>
+                    <PublicLayouts></PublicLayouts>
                 </div>
             </div>
             <div class="flex-row-item">
@@ -38,13 +38,15 @@
 <script>
     import PrivateLayouts from './PrivateLayouts.vue';
     import DefaultLayouts from './DefaultLayouts.vue';
+    import PublicLayouts from './PublicLayouts.vue';
     export default {
         data() {
             return {};
         },
         components: {
             PrivateLayouts,
-            DefaultLayouts
+            DefaultLayouts,
+            PublicLayouts
         }
     }
 </script>
