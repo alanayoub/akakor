@@ -34,7 +34,15 @@ module.exports = {
             options: {
                 name: '[name].[ext]?[hash]'
             }
-        }]
+        },
+        {
+            test: /fonts\/.*\.(woff|woff2|eot|ttf|svg)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+            loader: 'file-loader',
+            options: {
+                name: '[name].[ext]?[hash]'
+            }
+        }
+        ]
     },
     resolve: {
         alias: {

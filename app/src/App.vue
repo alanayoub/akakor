@@ -40,6 +40,8 @@
 </script>
 
 <style lang="scss">
+    $fa-font-path: './lib/font-awesome/fonts';
+    @import './lib/font-awesome/scss/font-awesome.scss';
     body {
         font-family: 'Lato', sans-serif;
         font-size: 14px;
