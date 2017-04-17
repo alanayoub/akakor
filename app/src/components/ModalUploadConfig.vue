@@ -86,9 +86,12 @@
             },
             upload_config(event) {
                 const vm = this;
-                vm.config.val.title = event.title;
-                vm.config.val.description = event.description;
-                window.akakor.api.create_public_copy({config: vm.config.val});
+                const config = Object.assign({}, vm.config.val, {
+                    title: event.title,
+                    description: event.description
+                });
+                console.log(config);
+                window.akakor.api.create_public_copy({config});
                 this.close();
             }
         }

@@ -49,7 +49,7 @@ export class API {
         if (type === 'public') {
             result = api.db
                 .ref(`configurations_${type}`)
-                .orderByChild('title')
+                .orderByChild('title') // change to 'author_display_name'
                 .startAt(token)
                 .endAt(`${token}\uf8ff`)
                 .limitToFirst(100)
@@ -67,7 +67,10 @@ export class API {
             const updates = {};
             const id = api.db.ref(`configurations_public`).push().key;
             const path = `configurations_public/${id}`;
-            updates[`${path}/author`] = api.current_user.uid;
+            const user = api.current_user;
+            updates[`${path}/author_id`] = user.uid;
+            updates[`${path}/author_display_name`] = user.displayName;
+            updates[`${path}/author_photo_url`] = user.photoURL;
             updates[`${path}/title`] = config.title;
             updates[`${path}/description`] = config.description;
             updates[`${path}/date_created`] = +new Date;

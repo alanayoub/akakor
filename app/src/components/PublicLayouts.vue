@@ -2,8 +2,15 @@
     <div>
         <ul>
             <li v-for="layout in layouts">
-                <div class="a-text" @click="load_layout(layout)">
-                    <span>{{ layout.val.title }}</span>
+                <div class="a-title">{{ layout.val.title }}</div>
+                <div class="a-author">Author: {{ layout.val.author_display_name }}</div>
+                <div class="a-description">
+                    {{ layout.val.description }}
+                    <div class="a-more" @click="more()">more</div>
+                </div>
+                <div class="a-download" @click="load_layout(layout)">
+                    <i class="fa fa-cloud-download" aria-hidden="true"></i>
+                    <span>Download</span>
                 </div>
             </li>
         </ul>
@@ -37,6 +44,9 @@
         methods: {
             load_layout(layout) {
                 window.akakor.bus.$emit('PUBLIC_LAYOUT_SELECTED', layout);
+            },
+            more(layout) {
+                layout.more = true;
             }
         }
     }
@@ -49,52 +59,51 @@
     }
     li {
         position: relative;
-        margin: 2px 0;
+        margin: 2px 0 20px 0;
         list-style: none;
         padding: 0 2px;
         cursor: default;
-        height: 34px;
     }
-    li:hover {
+    .a-title {
+        color: #2186b2;
+        font-size: 16px;
+    }
+    .a-author {
+        font-style: italic;
+        color: #999;
+    }
+    .a-description {
+        position: relative;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 50px;
+    }
+    .a-more {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        background: #fff;
+        color: #2186b3;
+        border-bottom: 1px solid;
+        padding: 0;
+        margin: 0;
+        cursor: pointer;
+    }
+    .a-download {
+        display: inline-block;
         background: #2186b3;
         color: #fff;
+        padding: 5px 10px!important;
+        cursor: pointer;
+        margin: 5px;
     }
-    li:hover .a-upload,
-    li:hover .a-delete {
-        display: block;
+    .a-download span {
+        margin-left: 5px;
     }
-    li:hover span {
+    .a-download:hover span {
         border-bottom: none;
     }
     li > div {
         padding: 5px;
     }
-    .a-text {
-        position: absolute;
-        left: 0;
-        right: 30px;
-    }
-    .a-text span {
-        border-bottom: 1px solid;
-    }
-    .a-delete {
-        display: none;
-        background: #000050;
-        float: right;
-        width: 10px;
-        text-align: center;
-        height: 10px;
-        position: relative;
-        top: 7px;
-        right: 5px;
-        color: #fff;
-        line-height: 10px;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    .a-delete:hover {
-        color: #c50c0c;
-        background: #fff;
-    }
-
 </style>
