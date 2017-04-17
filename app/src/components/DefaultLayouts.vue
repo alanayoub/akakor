@@ -59,7 +59,8 @@
         },
         created() {
             const vm = this;
-            akakor.api.get_configurations('default', function get_default_configs(data) {
+            const type = 'default';
+            const callback = function get_default_configs(data) {
                 const layouts = [];
                 for (let [key, val] of Object.entries(data.val())) {
                     const layout = JSON.stringify(val.layout);
@@ -71,7 +72,8 @@
                     });
                 }
                 vm.layouts = layouts;
-            });
+            };
+            akakor.api.get_configurations({type, callback});
         },
         methods: {
             load_layout(layout) {

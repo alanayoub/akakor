@@ -21,7 +21,9 @@
         },
         created() {
             const vm = this;
-            window.akakor.api.get_configurations('public', function get_public_configs(data) {
+            const type = 'public';
+            const token = '';
+            const callback = function get_public_configs(data) {
                 const layouts = [];
                 for (let [key, val] of Object.entries(data.val())) {
                     layouts.push({
@@ -29,7 +31,8 @@
                     });
                 }
                 vm.layouts = layouts;
-            });
+            };
+            window.akakor.api.get_configurations({type, token, callback});
         },
         methods: {
             load_layout(layout) {

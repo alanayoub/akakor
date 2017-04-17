@@ -32,7 +32,7 @@ export class API {
     // Get a list of configurations, private or default
     // depending on paramater provided
     //
-    get_configurations(type, callback) {
+    get_configurations({type, token = '', callback}) {
         const api = this;
         let result;
         if (type === 'private') {
@@ -49,6 +49,9 @@ export class API {
         if (type === 'public') {
             result = api.db
                 .ref(`configurations_${type}`)
+                .orderByChild('title')
+                .startAt(token)
+                .endAt(`${token}\uf8ff`)
                 .limitToFirst(100)
                 .on('value', callback);
         }

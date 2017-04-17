@@ -34,7 +34,8 @@
         },
         created() {
             const vm = this;
-            window.akakor.api.get_configurations('private', function get_private_configs(data) {
+            const type = 'private';
+            const callback = function get_private_configs(data) {
                 const layouts = [];
                 for (let [key, val] of Object.entries(data.val())) {
                     layouts.push({
@@ -42,7 +43,8 @@
                     });
                 }
                 vm.layouts = layouts;
-            });
+            };
+            window.akakor.api.get_configurations({type, callback});
         },
         methods: {
             delete_dialog(layout) {
