@@ -2,7 +2,10 @@
   <div id="app">
     <header>
         <div class="t-left">
-            <div class="t-logo">Nebula</div>
+            <div class="t-logo">
+                <i class="fa fa-rocket" aria-hidden="true"></i>
+                <span>Nebula</span>
+            </div>
         </div>
         <div class="t-right">
             <div class="t-user">
@@ -40,7 +43,7 @@
 </script>
 
 <style lang="scss">
-    $fa-font-path: './lib/font-awesome/fonts';
+    $fa-font-path: '/lib/font-awesome/fonts';
     @import './lib/font-awesome/scss/font-awesome.scss';
     body {
         font-family: 'Lato', sans-serif;
@@ -77,9 +80,15 @@
                     padding: 0 5px;
                 }
                 .t-logo {
-                    font-family: 'Roboto', sans-serif;
-                    font-size: 16px;
-                    font-weight: bold;
+                    .fa {
+                        font-size: 16px;
+                        margin-right: 5px;
+                    }
+                    span {
+                        font-family: 'Roboto', sans-serif;
+                        font-size: 16px;
+                        font-weight: bold;
+                    }
                 }
                 .t-user {
                     color: #fff;
