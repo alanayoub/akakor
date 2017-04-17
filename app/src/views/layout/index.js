@@ -37,7 +37,7 @@ export class Layout {
                 showMaximiseIcon: true,
                 showCloseIcon: true,
                 reorderEnabled: true,
-                selectionEnabled: true,
+                selectionEnabled: false,
             },
             dimensions: {
                 minItemHeight: 10,
@@ -89,7 +89,13 @@ export class Layout {
         });
 
         golden_layout.on('stackCreated', function (stack) {
-            const $html = $('<li class="a-add-tab">+</li>');
+            const $html = $(`
+                    <li class="a-add-tab">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                        New
+                    </li>
+                    <li class="a-divider"></li>
+            `);
             $html.on('click', function (event) {
                 stack.addChild({
                     id: +new Date(),

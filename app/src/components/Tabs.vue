@@ -6,7 +6,9 @@
                     <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">{{ tab.name }}</span>
                 </li>
                 <li class="a-add-tab">
-                    <span @click="openNewTab">+</span>
+                    <span @click="openNewTab">
+                        <i class="fa fa-plus-circle" aria-hidden="true"></i>
+                    </span>
                 </li>
             </ul>
         </div>
@@ -180,8 +182,13 @@
                     }
                 }
                 &.a-add-tab {
-                    font-size: 20px;
-                    line-height: 17px;
+                    .fa {
+                        font-size: 20px;
+                        color: #2186b3;
+                        border: 1px solid #fff;
+                        border-radius: 12px;
+                        background: #fff;
+                    }
                 }
             }
         }

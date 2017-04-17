@@ -92,4 +92,8 @@
         padding: 0 20px;
         height: 30px;
     }
+    textarea {
+        width: 100%;
+        height: 200px;
+    }
 </style>

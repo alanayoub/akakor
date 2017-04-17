@@ -49,7 +49,6 @@ export class API {
         if (type === 'public') {
             result = api.db
                 .ref(`configurations_${type}`)
-                .orderByChild('upvote_count')
                 .limitToFirst(100)
                 .on('value', callback);
         }
