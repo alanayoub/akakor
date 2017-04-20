@@ -3,7 +3,7 @@
         <div class="flex-row">
             <div class="flex-row-item">
                 <div class="flex-column">
-                    <h1>Private Layouts</h1>
+                    <h1>My Layouts</h1>
                     <PrivateLayouts></PrivateLayouts>
                     <h1>Public Layouts</h1>
                     <PublicLayouts></PublicLayouts>
@@ -11,7 +11,7 @@
             </div>
             <div class="flex-row-item">
                 <div class="flex-column">
-                    <h1>Default Layouts</h1>
+                    <h1>Templates</h1>
                     <DefaultLayouts></DefaultLayouts>
                 </div>
             </div>
