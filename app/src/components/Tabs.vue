@@ -5,7 +5,7 @@
                 <li v-for="tab in tabs" class="a-tab" :class="{'a-active': tab.isActive}">
                     <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">{{ tab.name }}</span>
                 </li>
-                <li class="a-add-tab" v-if="showNew()">
+                <li class="a-add-tab" :class="{'a-active': newTabEnabled}">
                     <span @click="openNewTab">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </span>
@@ -30,11 +30,11 @@
             return {
                 tabs: [{
                     name: 'Untitled',
-                    id : `default_${+new Date}`,
+                    id : `home_${+new Date}`,
+                    home: true,
                     isActive: true,
                     layout: false
                 }],
-                _showNew: false,
                 activeTab: {}
             }
         },
@@ -47,21 +47,21 @@
                 this.tabs.forEach(tab => {
                     if (tab.isActive) {
                         tab.default = true;
+                        tab.home = false;
                         tab.layout = layout.val.layout;
                     }
                 });
-                this._showNew = true;
             })
             window.akakor.bus.$on('PRIVATE_LAYOUT_SELECTED', layout => {
                 this.tabs.forEach(tab => {
                     if (tab.isActive) {
                         tab.private = true;
                         tab.id = layout.key;
+                        tab.home = false;
                         tab.name = layout.val.title;
                         tab.layout = layout.val.layout;
                     }
                 });
-                this._showNew = true;
             })
             window.akakor.bus.$on('PUBLIC_LAYOUT_SELECTED', layout => {
                 const id = 0; // dummy id that doesnt exist
@@ -81,6 +81,7 @@
                     if (tab.id === id) {
                         tab.default = false;
                         tab.private = true;
+                        tab.home = false;
                         tab.title = data.title;
                         tab.layout = data.layout;
                         tab.id = data.id;
@@ -91,16 +92,21 @@
         ready() {
             this.setActive(this.tabs[0]);
         },
-        methods: {
-            showNew() {
-                return this._showNew;
+        computed: {
+            newTabEnabled() {
+                const lastIsActive = this.tabs.slice(-1)[0].isActive;
+                const currentIsHome = this.tabs[0].home;
+                const homeExists = this.tabs.filter(tab => tab.home).length;
+                return !homeExists || !(lastIsActive || currentIsHome);
             },
+        },
+        methods: {
             blur(tab) {
                 tab.name = this.$refs[tab.id][0].textContent;
                 const title = tab.name;
                 const id = tab.id;
-                const is_default = id.startsWith('default_');
-                if (is_default) return;
+                const is_home = id.startsWith('home_');
+                if (is_home) return;
                 window.akakor.api.update_title({
                     title,
                     id
@@ -114,17 +120,24 @@
                         tab.isActive = false;
                     }
                 });
+                this.newTabEnabled;
             },
             openNewTab() {
-                const newTab = {
-                    name: `Untitled`,
-                    id: `default_${+new Date}`,
-                    isActive: true,
-                    layout: false
-                };
-                this._showNew = false;
-                this.tabs.push(newTab);
-                this.setActive(newTab);
+                const homeTab = this.tabs.filter(tab => tab.home)[0]
+                if (homeTab) {
+                    this.setActive(homeTab);
+                }
+                else {
+                    const newTab = {
+                        name: `Untitled`,
+                        id: `home_${+new Date}`,
+                        home: true,
+                        isActive: true,
+                        layout: false
+                    };
+                    this.tabs.push(newTab);
+                    this.setActive(newTab);
+                }
             },
             closeTab() {}
         }
@@ -189,9 +202,14 @@
                     }
                 }
                 &.a-add-tab {
+                    &.a-active {
+                        .fa {
+                            color: #2186b3;
+                        }
+                    }
                     .fa {
                         font-size: 20px;
-                        color: #2186b3;
+                        color: #ccc;
                         border: 1px solid #fff;
                         border-radius: 12px;
                         background: #fff;
