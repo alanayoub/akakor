@@ -5,7 +5,7 @@
                 <li v-for="tab in tabs" class="a-tab" :class="{'a-active': tab.isActive}">
                     <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">{{ tab.name }}</span>
                 </li>
-                <li class="a-add-tab">
+                <li class="a-add-tab" v-if="showNew()">
                     <span @click="openNewTab">
                         <i class="fa fa-plus-circle" aria-hidden="true"></i>
                     </span>
@@ -34,6 +34,7 @@
                     isActive: true,
                     layout: false
                 }],
+                _showNew: false,
                 activeTab: {}
             }
         },
@@ -49,6 +50,7 @@
                         tab.layout = layout.val.layout;
                     }
                 });
+                this._showNew = true;
             })
             window.akakor.bus.$on('PRIVATE_LAYOUT_SELECTED', layout => {
                 this.tabs.forEach(tab => {
@@ -59,6 +61,7 @@
                         tab.layout = layout.val.layout;
                     }
                 });
+                this._showNew = true;
             })
             window.akakor.bus.$on('PUBLIC_LAYOUT_SELECTED', layout => {
                 const id = 0; // dummy id that doesnt exist
@@ -89,6 +92,9 @@
             this.setActive(this.tabs[0]);
         },
         methods: {
+            showNew() {
+                return this._showNew;
+            },
             blur(tab) {
                 tab.name = this.$refs[tab.id][0].textContent;
                 const title = tab.name;
@@ -116,6 +122,7 @@
                     isActive: true,
                     layout: false
                 };
+                this._showNew = false;
                 this.tabs.push(newTab);
                 this.setActive(newTab);
             },
