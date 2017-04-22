@@ -249,4 +249,9 @@
         margin: 0;
         padding: 0;
     }
+
+    .A-form-new fieldset.vue-form-generator .form-group {
+        margin: 5px auto;
+    }
+
 </style>

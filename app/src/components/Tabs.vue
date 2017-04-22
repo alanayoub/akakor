@@ -3,7 +3,10 @@
         <div class="a-tabs">
             <ul>
                 <li v-for="tab in tabs" class="a-tab" :class="{'a-active': tab.isActive}">
-                    <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">{{ tab.name }}</span>
+                    <i class="fa fa-times" aria-hidden="true" @click.stop.prevent="closeTab(tab)"></i>
+                    <span type="text" data-toggle="tab" @click="setActive(tab)" @blur="blur(tab)" v-bind:ref="tab.id" contenteditable="true">
+                        {{ tab.name }}
+                    </span>
                 </li>
                 <li class="a-add-tab" :class="{'a-active': newTabEnabled}">
                     <span @click="openNewTab">
@@ -139,14 +142,24 @@
                     this.setActive(newTab);
                 }
             },
-            closeTab() {}
+            closeTab(tab) {
+                let idx;
+                const tabs = this.tabs;
+                if (tabs.length === 1) return;
+                tabs.forEach((t, i) => {
+                    if (t === tab) idx = i;
+                });
+                tabs.splice(idx, 1);
+                const new_tab = tabs[idx] || tabs[idx -1];
+                this.setActive(new_tab);
+            }
         }
     }
 </script>
 
 <style lang="scss" scoped>
     .a-tabs {
-        background: #c1e6f6;
+        background: #CEEBF8;
         position: absolute;
         left: 0;
         right: 0;
@@ -177,7 +190,7 @@
                     display: inline-block;
                     float: left;
                     span {
-                        padding: 13px;
+                        padding: 13px 21px 13px 13px;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         white-space: nowrap;
@@ -185,6 +198,22 @@
                         display: inline-block;
                         float: left;
                         position: relative;
+                    }
+                    .fa {
+                        display: none;
+                        position: absolute;
+                        top: 2px;
+                        right: 4px;
+                        font-size: 12px;
+                        color: #ccc;
+                        z-index: 2;
+                    }
+                    &:hover {
+                        .fa {
+                            display: block;
+                            color: #f00;
+                        }
+
                     }
                     &.a-active {
                         background: #fff;
