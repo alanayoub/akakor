@@ -161,13 +161,12 @@
                 display: inline-block;
                 list-style: none;
                 margin: 0 5px 0 0;
-                padding: 5px;
+                padding: 0;
                 cursor: default;
                 &.a-tab {
                     font-family: 'Roboto', sans-serif;
                     font-size: 20px;
                     font-weight: bold;
-                    line-height: 41px;
                     color: #005d95;
                     display: inline-block;
                     list-style: none;
@@ -175,8 +174,16 @@
                     cursor: default;
                     background: none;
                     position: relative;
+                    display: inline-block;
+                    float: left;
                     span {
-                        padding: 10px;
+                        padding: 13px;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        max-width: 150px;
+                        display: inline-block;
+                        float: left;
                     }
                     &.a-active {
                         background: #fff;
@@ -202,6 +209,9 @@
                     }
                 }
                 &.a-add-tab {
+                    top: 13px;
+                    position: relative;
+                    left: 4px;
                     &.a-active {
                         .fa {
                             color: #2186b3;

@@ -178,9 +178,14 @@
                 box-shadow: none;
                 background: #00ce82;
                 color: #fff;
+                padding-bottom: 6px;
             }
             .lm_title {
                 line-height: 10px;
+                max-width: 140px;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
             .lm_close_tab {
                 background: none;
