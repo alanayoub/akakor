@@ -81,10 +81,12 @@ export class Layout {
                 title,
                 id
             }
-            akakor.api.save(config).then(new_id => {
-                window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
-                    id: new_id
-                }));
+            akakor.api.save(config, id).then(new_id => {
+                if (id !== new_id) {
+                    window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
+                        id: new_id
+                    }));
+                }
             });
         });
 
