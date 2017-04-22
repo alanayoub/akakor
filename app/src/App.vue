@@ -125,6 +125,7 @@
     .A-form-new {
         width: 100%;
         height: 100%;
+        background: #fff;
         .a-container {
             padding: 20px;
         }
@@ -163,22 +164,27 @@
     .lm_goldenlayout {
         background: #fff;
     }
+    .lm_content {
+        background: #22b314!important;
+        padding-top: 1px;
+    }
     .lm_header .lm_tab,
     .lm_content {
-        background: #f1efee;
+        background: rgba(255, 255, 255, 0.7);
         border: none;
     }
     .lm_header {
         height: 24px!important;
+        background: #c1e6f6;
         .lm_tab {
             border-top-right-radius: 2px;
-            height: 17px;
+            height: 19px;
             font-size: 14px;
             &.lm_active {
                 box-shadow: none;
-                background: #00ce82;
+                background: #22b314;
                 color: #fff;
-                padding-bottom: 6px;
+                padding-bottom: 4px;
             }
             .lm_title {
                 line-height: 10px;
@@ -193,6 +199,7 @@
                 font: normal normal normal 14px/1 FontAwesome;
                 font-size: inherit;
                 text-rendering: auto;
+                top: 5px;
                 -webkit-font-smoothing: antialiased;
                 &:before {
                     content: "\f00d"
@@ -202,19 +209,28 @@
 
         .lm_controls {
             top: 2px;
-            li {
+            color: #010101;
+            font-size: 12px;
+            > li {
                 line-height: 18px;
+                opacity: 1;
+                &:hover {
+                    filter: invert(100%);
+                }
             }
             .a-add-tab {
                 width: 60px;
             }
             .a-divider {
                 width: 0;
-                color: #c1e6f6;
-                border-left: 3px solid #c1e6f6;
-                margin: 0 15px;
+                border-left: 1px dotted #2086b2;
+                margin: 0 5px;
             }
         }
+    }
+    .lm_splitter {
+        background: #c1e6f6;
+        opacity: 1;
     }
 
     .lm_splitter.lm_horizontal .lm_drag_handle {

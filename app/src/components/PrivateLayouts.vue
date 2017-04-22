@@ -129,7 +129,7 @@
         }
     }
     .a-upload:hover {
-        background: #000050;
+        background: #000050!important;
     }
     .a-delete {
         display: none;
@@ -149,7 +149,7 @@
         }
     }
     .a-delete:hover {
-        background: #000050;
+        background: #000050!important;
     }
 
 </style>

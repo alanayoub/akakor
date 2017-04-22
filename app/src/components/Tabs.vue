@@ -184,6 +184,7 @@
                         max-width: 150px;
                         display: inline-block;
                         float: left;
+                        position: relative;
                     }
                     &.a-active {
                         background: #fff;
@@ -237,7 +238,7 @@
         bottom: 0;
     }
     .a-contents {
-        top: 51px;
+        top: 50px;
     }
     .a-content {
         display: none;
