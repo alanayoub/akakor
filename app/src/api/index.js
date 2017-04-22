@@ -48,7 +48,7 @@ export class API {
         }
         if (type === 'public') {
             result = api.db
-                .ref(`configurations_${type}`)
+                .ref(`configurations_${type}_read`)
                 .orderByChild('title') // change to 'author_display_name'
                 .startAt(token)
                 .endAt(`${token}\uf8ff`)
@@ -59,14 +59,61 @@ export class API {
     }
 
     //
+    // Get a private configuration
+    //
+    get_configuration_private(id) {
+        const api = this;
+        return api.db
+            .ref(`configurations_private/${api.current_user.uid}/${id}`)
+            .once('value');
+    }
+
+    //
+    // Check if the current user exists
+    //
+    check_if_user_exists() {
+        const api = this;
+        return api.db
+            .ref('users')
+            .child(api.current_user.uid)
+            .once('value')
+            .then(data => {
+                return Promise.resolve(data.exists());
+            });
+    }
+
+    //
+    // Check if a configuration exists
+    //
+    check_if_config_exists(id) {
+        const api = this;
+        return api.db
+            .ref('configurations_private')
+            .child(api.current_user.uid)
+            .child(id)
+            .once('value')
+            .then(data => {
+                return Promise.resolve(data.exists());
+            });
+    }
+
+    //
+    // Delete a configuration
+    //
+    delete_configuration({id}) {
+        const api = this;
+        api.db.ref(`configurations_private/${api.current_user.uid}/${id}`).remove();
+    }
+
+    //
     // Create a new public copy of a config
     //
     create_public_copy({config, callback}) {
         const api = this;
         return new Promise(resolve => {
             const updates = {};
-            const id = api.db.ref(`configurations_public`).push().key;
-            const path = `configurations_public/${id}`;
+            const id = api.db.ref(`configurations_public/${api.current_user.uid}`).push().key;
+            const path = `configurations_public/${api.current_user.uid}/${id}`;
             const user = api.current_user;
             updates[`${path}/author_id`] = user.uid;
             updates[`${path}/author_display_name`] = user.displayName;
@@ -79,16 +126,6 @@ export class API {
             api.db.ref().update(updates);
             resolve(id);
         });
-    }
-
-    //
-    // Get a private configuration
-    //
-    get_configuration_private(id) {
-        const api = this;
-        return api.db
-            .ref(`configurations_private/${api.current_user.uid}/${id}`)
-            .once('value');
     }
 
     //
@@ -145,43 +182,6 @@ export class API {
                 resolve(id);
             });
         });
-    }
-
-    //
-    // Delete a configuration
-    //
-    delete_configuration({id}) {
-        const api = this;
-        api.db.ref(`configurations_private/${api.current_user.uid}/${id}`).remove();
-    }
-
-    //
-    // Check if the current user exists
-    //
-    check_if_user_exists() {
-        const api = this;
-        return api.db
-            .ref('users')
-            .child(api.current_user.uid)
-            .once('value')
-            .then(data => {
-                return Promise.resolve(data.exists());
-            });
-    }
-
-    //
-    // Check if a configuration exists
-    //
-    check_if_config_exists(id) {
-        const api = this;
-        return api.db
-            .ref('configurations_private')
-            .child(api.current_user.uid)
-            .child(id)
-            .once('value')
-            .then(data => {
-                return Promise.resolve(data.exists());
-            });
     }
 
 }

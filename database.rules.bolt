@@ -1,0 +1,40 @@
+//
+// Default Config
+//
+path /configurations_default {
+  read() { true }
+}
+
+
+//
+// Private Config
+//
+path /configurations_private/{uid} is PrivateConfig {
+  read() { isCurrentUser(uid) }
+  write() { isCurrentUser(uid) }
+}
+
+type PrivateConfig {
+  title: String,
+  layout: String
+}
+
+
+//
+// Public Config
+//
+path /configurations_public/{uid} is PublicConfig {
+  read() { isCurrentUser(uid) }
+  write() { isCurrentUser(uid) }
+}
+
+type PublicConfig {
+  title: String,
+  layout: String
+}
+
+
+//
+// Functions
+//
+isCurrentUser(uid) { auth != null && auth.uid == uid }
