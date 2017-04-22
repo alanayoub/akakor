@@ -74,7 +74,6 @@
                 color: #ccc;
             }
             .a-title {
-                color: #2186b2;
                 font-size: 16px;
             }
             .a-author {

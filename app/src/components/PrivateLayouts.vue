@@ -85,9 +85,11 @@
     li:hover .a-upload,
     li:hover .a-delete {
         display: block;
+        background: #2186b3;
     }
     li:hover span {
         border-bottom: none;
+        color: #fff;
     }
     li > div {
         padding: 5px;
@@ -99,9 +101,15 @@
         position: absolute;
         left: 0;
         right: 30px;
-    }
-    .a-text span {
-        border-bottom: 1px solid;
+        line-height: 22px;
+        span {
+            color: #2187b3;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 100%;
+            display: inline-block;
+        }
     }
     .a-upload {
         display: none;
