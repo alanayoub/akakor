@@ -41,7 +41,7 @@
             const callback = function get_private_configs(data) {
                 const layouts = [];
                 if (data.val() !== null) {
-                    for (let [key, val] of Object.entries(items)) {
+                    for (let [key, val] of Object.entries(data.val())) {
                         layouts.push({
                             key, val
                         });
