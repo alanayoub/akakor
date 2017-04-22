@@ -51,9 +51,10 @@
         line-height: 24px;
         margin: 0;
         padding: 0;
+        overflow: hidden;
         #app {
             background: #fff;
-            /* position: fixed; */
+            position: absolute;
             width: 100%;
             height: 100%;
             z-index: 1000;
