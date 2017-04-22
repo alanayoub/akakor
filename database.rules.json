@@ -9,10 +9,16 @@
         ".read": "$uid === auth.uid"
       }
     },
-    "configurations_public": {
-      ".indexOn": ["title", "description"],
+    "configurations_public_read": {
+      ".indexOn": ["title", "description", "author_display_name"],
       ".read": true,
-      ".write": true,
+      ".write": false
+    },
+    "configurations_public": {
+      "$uid": {
+        ".write": "$uid === auth.uid",
+        ".read": "$uid === auth.uid"
+      }
     },
     "users": {
       "$uid": {
