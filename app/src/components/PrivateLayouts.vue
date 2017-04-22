@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul>
+        <ul v-if="layouts.length > 0">
             <li v-for="layout in layouts">
                 <div class="a-text" @click="load_layout(layout)">
                     <span>{{ layout.val.title }}</span>
@@ -12,6 +12,9 @@
                     <i class="fa fa-times" aria-hidden="true"></i>
                 </div>
             </li>
+        </ul>
+        <ul v-else>
+            <li><div class="a-none">You have not created any layouts</div></li>
         </ul>
         <ModalUploadConfig></ModalUploadConfig>
         <ModalDeleteConfig></ModalDeleteConfig>
@@ -37,10 +40,12 @@
             const type = 'private';
             const callback = function get_private_configs(data) {
                 const layouts = [];
-                for (let [key, val] of Object.entries(data.val())) {
-                    layouts.push({
-                        key, val
-                    });
+                if (data.val() !== null) {
+                    for (let [key, val] of Object.entries(items)) {
+                        layouts.push({
+                            key, val
+                        });
+                    }
                 }
                 vm.layouts = layouts;
             };
@@ -86,6 +91,9 @@
     }
     li > div {
         padding: 5px;
+    }
+    .a-none {
+        color: #ccc;
     }
     .a-text {
         position: absolute;

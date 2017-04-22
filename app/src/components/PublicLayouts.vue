@@ -1,6 +1,6 @@
 <template>
     <div>
-        <ul>
+        <ul v-if="layouts.length > 0">
             <li v-for="layout in layouts">
                 <div class="a-title">{{ layout.val.title }}</div>
                 <div class="a-author">Author: {{ layout.val.author_display_name }}</div>
@@ -13,6 +13,9 @@
                     <span>Download</span>
                 </div>
             </li>
+        </ul>
+        <ul v-else>
+            <li><div class="a-none">No Public Layouts Available</div></li>
         </ul>
     </div>
 </template>
@@ -32,10 +35,12 @@
             const token = '';
             const callback = function get_public_configs(data) {
                 const layouts = [];
-                for (let [key, val] of Object.entries(data.val())) {
-                    layouts.push({
-                        key, val
-                    });
+                if (data.val() !== null) {
+                    for (let [key, val] of Object.entries(data.val())) {
+                        layouts.push({
+                            key, val
+                        });
+                    }
                 }
                 vm.layouts = layouts;
             };
@@ -64,6 +69,9 @@
             list-style: none;
             > div {
                 padding: 5px;
+            }
+            .a-none {
+                color: #ccc;
             }
             .a-title {
                 color: #2186b2;
