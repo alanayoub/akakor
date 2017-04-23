@@ -71,6 +71,7 @@
                         html_table
                     });
                 }
+                layouts.sort((a, b) => +a.key - + b.key);
                 vm.layouts = layouts;
             };
             akakor.api.get_configurations({type, callback});
