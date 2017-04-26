@@ -86,6 +86,7 @@ export class Layout {
                     window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
                         id: new_id
                     }));
+                    id = new_id;
                 }
             });
         });
