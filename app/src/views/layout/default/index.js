@@ -24,7 +24,7 @@ export class Default {
                         id: 1,
                         title: "Example",
                         url: "https://example.com",
-                        update: Infinity
+                        update: 0
                     },
                     schema: {
                         fields: [
@@ -32,29 +32,28 @@ export class Default {
                                 type: "input",
                                 inputType: "text",
                                 label: "Title",
-                                model: "title"
+                                model: "title",
+                                required: true,
+                                validator: VueFormGenerator.validators.string
                             },
                             {
                                 type: "input",
                                 inputType: "text",
                                 label: "url",
-                                model: "url"
+                                model: "url",
+                                required: true,
+                                validator: VueFormGenerator.validators.string
                             },
                             {
-                                type: "select",
-                                label: "Update",
+                                type: "input",
+                                inputType: "text",
+                                label: "Reload every x seconds",
+                                hint: "0 = don't reload",
+                                maxlength: 10,
                                 model: "update",
                                 required: true,
-                                values: function() {
-                                  return [
-                                    { id: Infinity, name: "Never" },
-                                    { id: 60, name: "1 minute" },
-                                    { id: 300, name: "5 minutes" },
-                                    { id: 600, name: "10 minutes" },
-                                    { id: 1800, name: "30 minutes" }
-                                  ]
-                                },
-                                default: "en-US"
+                                visible: true,
+                                validator: VueFormGenerator.validators.number
                             },
                             {
                                 type: 'submit',
@@ -71,7 +70,7 @@ export class Default {
                                         componentState: {
                                             title: event.title,
                                             url: event.url,
-                                            update: ''
+                                            update: event.update
                                         }
                                     };
                                     const stack = container.parent.parent;
