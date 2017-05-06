@@ -134,15 +134,24 @@ export class API {
     //
     update_user() {
         const api = this;
-        api.check_if_user_exists().then(exists => {
-            const provider_data = api.current_user.providerData[0];
-            if (exists) {
-                for (let [key, val] of Object.entries(provider_data)) {
-                    api.db.ref(`users/${api.current_user.uid}/${key}/`).set(val);
+        return new Promise(resolve => {
+            api.check_if_user_exists().then(exists => {
+                const provider_data = api.current_user.providerData[0];
+                const handler = () => {
+                    api.db.ref(`users/${api.current_user.uid}`).once('value').then(user => {
+                        resolve(user);
+                    });
                 }
-            } else {
-                api.db.ref(`users/${api.current_user.uid}`).set(provider_data);
-            }
+                if (exists) {
+                    const updates = {};
+                    for (let [key, val] of Object.entries(provider_data)) {
+                        updates[key] = val;
+                    }
+                    api.db.ref(`users/${api.current_user.uid}`).update(updates).then(handler);
+                } else {
+                    api.db.ref(`users/${api.current_user.uid}`).set(provider_data).then(handler);
+                }
+            });
         });
     }
 
