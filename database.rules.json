@@ -5,7 +5,8 @@
     },
     "configurations_private": {
       "$uid": {
-        ".write": "$uid === auth.uid",
+        // Validate if user and less than default_max_configs
+        ".write": "$uid === auth.uid && root.child('num_configs').child($uid).val() <= root.child('default_max_configs').val()",
         ".read": "$uid === auth.uid"
       }
     },
@@ -24,6 +25,21 @@
       "$uid": {
         ".write": "$uid === auth.uid",
         ".read": "$uid === auth.uid"
+      }
+    },
+    "default_max_configs": {
+      ".write": false
+    },
+    "max_configs": {
+      ".write": false
+    },
+    "num_configs": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        // no deletes
+        ".write": "newData.exists()",
+        // Count number of configs, dont let more than default_max_configs
+        ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= root.child('default_max_configs').val()"
       }
     }
   }

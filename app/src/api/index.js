@@ -18,6 +18,9 @@ export class API {
     set user(user) {
         const api = this;
         api.current_user = user;
+        api.db.ref(`num_configs/${api.current_user.uid}`).on('value', snapshot => {
+            api.num_configs = snapshot.val();
+        });
     }
 
     get db() {
@@ -102,7 +105,10 @@ export class API {
     //
     delete_configuration({id}) {
         const api = this;
-        api.db.ref(`configurations_private/${api.current_user.uid}/${id}`).remove();
+        const updates = {};
+        updates[`num_configs/${api.current_user.uid}`] = api.num_configs - 1;
+        updates[`configurations_private/${api.current_user.uid}/${id}`] = null;
+        api.db.ref().update(updates);
     }
 
     //
@@ -182,6 +188,7 @@ export class API {
                 const updates = {};
                 const path = `configurations_private/${api.current_user.uid}`;
                 if (!exists) {
+                    updates[`num_configs/${api.current_user.uid}`] = api.num_configs + 1;
                     id = api.db.ref(`configurations_private/${api.current_user.uid}`).push().key;
                 }
                 layout = typeof layout === 'string' ? layout : JSON.stringify(layout);
