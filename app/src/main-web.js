@@ -25,6 +25,7 @@ window.akakor = {
     IS_ELECTRON,
     ORIGIN
 }
+let app;
 
 auth.onAuthStateChanged(user => {
     const loc = window.location.href;
@@ -32,10 +33,17 @@ auth.onAuthStateChanged(user => {
     if (!user && loc !== signin) window.location.replace(signin);
     if (user) {
 
+        // user is the user credentials we get from google auth
+        // db_user is the stored user credentials in our firebase databse
         akakor.api.user = user;
-        api.update_user();
+        api.update_user().then(db_user => {
+            const usr = db_user.val();
+            if (!usr.username) {
+                // create username modal
+            };
+        });
 
-        new Vue({
+        if (app === void 0) app = new Vue({
           el: '#app',
           render: h => h(App)
         });
