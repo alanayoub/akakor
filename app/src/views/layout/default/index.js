@@ -52,7 +52,7 @@ export class Default {
                                 maxlength: 10,
                                 model: "update",
                                 required: true,
-                                visible: true,
+                                visible: false,
                                 validator: VueFormGenerator.validators.number
                             },
                             {
