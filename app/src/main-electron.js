@@ -5,7 +5,7 @@ const path = require('path');
 const url = require('url');
 const windowStateKeeper = require('electron-window-state');
 
-function createWindow({local, web}) {
+function createWindow({url}) {
 
     // Load the previous window state with fallback to defaults
     let mainWindowState = windowStateKeeper({
@@ -31,16 +31,7 @@ function createWindow({local, web}) {
 
     const ses = win.webContents.session;
 
-    if (local) {
-        win.loadURL(url.format({
-            pathname: path.join(__dirname, local),
-            protocol: 'file:',
-            slashes: true
-        }));
-    }
-    else {
-        win.loadURL(web);
-    }
+    win.loadURL(url);
 
     ses.clearCache(() => {});
     win.webContents.openDevTools();
@@ -51,7 +42,7 @@ function createWindow({local, web}) {
 }
 
 app.on('ready', () => {
-    createWindow({local: './signin.html'});
+    createWindow({url: 'http://localhost:8081/signin.html'});
 });
 
 app.on('window-all-closed', function () {

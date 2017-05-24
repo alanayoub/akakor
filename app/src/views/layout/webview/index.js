@@ -4,7 +4,7 @@ export class Webview {
         const webview = document.createElement('webview');
         webview.autosize = 'on';
         webview.src = state.url;
-
+        webview.allowpopups = true;
 
         webview.addEventListener('did-start-loading', event => {
             console.log('did start loading');
