@@ -219,4 +219,237 @@ fieldset.vue-form-generator .form-group.error .errors span {
   background-color: #337ab7 !important;
   border-color: #2e6da4 !important; }
 
+.A-webview {
+  /* These glyphs are on the small side, make them look more natural when
+  compared to the back/forward buttons */
+  /* The reload button turns into a spinning trobber */
+  /* Due to http://crbug.com/156219 we can't use display: none */
+  /* Variant of the crashed page when the process is intentionally killed (in that
+  case we use a different background color and label). */ }
+  .A-webview body {
+    margin: 0;
+    padding: 0;
+    font-family: Lucida Grande, Arial, sans-serif; }
+  .A-webview button,
+  .A-webview input {
+    outline: none; }
+  .A-webview #controls {
+    padding: 3px;
+    border-bottom: solid 1px #ccc;
+    background-color: #eee; }
+  .A-webview #controls button,
+  .A-webview #controls input {
+    font-size: 14px;
+    line-height: 24px;
+    border-radius: 2px;
+    padding: 0 6px; }
+  .A-webview button,
+  .A-webview input[type="submit"],
+  .A-webview button[disabled]:hover {
+    border: solid 1px transparent;
+    background: transparent; }
+  .A-webview button:hover,
+  .A-webview input[type="submit"]:hover,
+  .A-webview button:focus,
+  .A-webview input[type="submit"]:focus {
+    border-color: #ccc;
+    background: -webkit-linear-gradient(bottom, #cccccc 0%, #f2f2f2 99%); }
+  .A-webview button:focus,
+  .A-webview input[type="submit"]:focus {
+    border-style: outset; }
+  .A-webview button:active,
+  .A-webview input[type="submit"]:active {
+    border-color: #bbb;
+    border-style: solid;
+    background: -webkit-linear-gradient(bottom, #e2e2e2 0%, #bbbbbb 99%); }
+  .A-webview #controls #home,
+  .A-webview #controls #terminate {
+    font-size: 24px; }
+  .A-webview #controls #reload {
+    font-size: 20px; }
+  .A-webview #controls #zoom,
+  .A-webview #controls #find {
+    font-size: 18px; }
+  .A-webview #location {
+    border: solid 1px #ccc;
+    padding: 2px;
+    width: 100%;
+    -webkit-box-sizing: border-box; }
+  .A-webview #controls {
+    display: -webkit-flex;
+    -webit-flex-direction: column; }
+  .A-webview #controls #location-form {
+    -webkit-flex: 1;
+    display: -webkit-flex;
+    -webit-flex-direction: column; }
+  .A-webview #controls #center-column {
+    -webkit-flex: 1; }
+  .A-webview #zoom-box,
+  .A-webview #find-box {
+    background-color: #eee;
+    border: solid 1px #ccc;
+    border-top: solid 1px #eee;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding: 2px;
+    position: fixed;
+    margin-top: -1px;
+    height: 25px;
+    display: none; }
+  .A-webview #zoom-box #zoom-form,
+  .A-webview #find-box #find-form {
+    -webkit-flex: 1;
+    display: -webkit-flex;
+    -webit-flex-direction: row;
+    min-width: 0; }
+  .A-webview #zoom-box input,
+  .A-webview #zoom-box button,
+  .A-webview #find-box button {
+    border-radius: 2px; }
+  .A-webview #zoom-box #zoom-text,
+  .A-webview #find-box #find-text {
+    border: solid 1px #ccc;
+    margin-right: 0px;
+    padding: 2px;
+    -webkit-box-sizing: border-box;
+    -webkit-flex: 1;
+    min-width: 0; }
+  .A-webview #zoom-box {
+    left: 5px;
+    width: 125px;
+    z-index: 1;
+    position: absolute;
+    left: 7px; }
+  .A-webview #zoom-box input[type="submit"] {
+    font-size: 14px;
+    margin: 2px 0px;
+    padding: 0 2px 3px 2px;
+    width: 22px; }
+  .A-webview #zoom-box button {
+    font-size: 12px;
+    margin: 2px 0px;
+    padding: 0px 1px 0px 0px;
+    width: 20px; }
+  .A-webview #find-box {
+    right: 22px;
+    width: 280px;
+    z-index: 2;
+    position: absolute; }
+  .A-webview #find-box #find-text {
+    border-right-style: none;
+    border-top-left-radius: 2px;
+    border-bottom-left-radius: 2px; }
+  .A-webview #find-box #find-results {
+    color: #888;
+    background-color: #fff;
+    border: solid 1px #ccc;
+    border-left-style: none;
+    border-top-right-radius: 2px;
+    border-bottom-right-radius: 2px;
+    padding: 3px 4px 2px 0;
+    text-align: center; }
+  .A-webview #find-results {
+    margin: 0px 0px; }
+  .A-webview #find-box #match-case {
+    margin: 2px 0px;
+    font-size: 10px;
+    width: 28px; }
+  .A-webview #find-box #find-backward,
+  .A-webview #find-box #find-forward {
+    font-size: 14px;
+    width: 24px; }
+  .A-webview .overlay {
+    -webkit-box-align: center;
+    -webkit-box-orient: vertical;
+    -webkit-box-pack: center;
+    -webkit-perspective: 1px;
+    -webkit-transition: 200ms opacity;
+    background-color: rgba(255, 255, 255, 0.75);
+    bottom: 0;
+    display: none;
+    left: 0;
+    overflow: auto;
+    padding: 20px;
+    position: fixed;
+    right: 0;
+    top: 0; }
+  .A-webview #clear-data-overlay {
+    z-index: 3; }
+  .A-webview #clear-data-confirm {
+    -webkit-box-orient: vertical;
+    background-clip: border-box;
+    background-color: white;
+    background-image: none;
+    background-origin: padding-box;
+    background-size: auto;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 4px 23px 5px, rgba(0, 0, 0, 0.14902) 0px 2px 6px 0px;
+    color: #333333;
+    display: none;
+    min-width: 400px;
+    padding-bottom: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    transition-delay: 0s;
+    transition-duration: 0.2s;
+    transition-property: -webkit-transform;
+    transition-timing-function: ease;
+    width: 500px;
+    z-index: 0;
+    display: none;
+    position: fixed;
+    top: 25%;
+    left: 50%;
+    width: 400px;
+    margin-left: -200px;
+    padding: 16px;
+    background-color: white;
+    z-index: 4;
+    overflow: auto; }
+  .A-webview #clear-data-checkbox {
+    list-style-type: none;
+    margin-bottom: 5px; }
+  .A-webview #sad-webview,
+  .A-webview webview {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 34px !important; }
+  .A-webview .loading #reload {
+    -webkit-animation: spinner-animation .5s infinite linear;
+    -webkit-transform-origin: 50% 55.5%; }
+@-webkit-keyframes spinner-animation {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+  .A-webview #sad-webview,
+  .A-webview .exited webview {
+    visibility: hidden;
+    visibility: hidden; }
+  .A-webview .exited #sad-webview {
+    visibility: visible;
+    background: #343f51;
+    text-align: center;
+    color: #fff; }
+  .A-webview #sad-webview h2 {
+    font-size: 14px; }
+  .A-webview #sad-webview p {
+    font-size: 11px; }
+  .A-webview #sad-webview-icon {
+    font-size: 96px;
+    margin-bottom: 10px; }
+  .A-webview .exited #sad-webview #killed-label {
+    display: none; }
+  .A-webview .killed #sad-webview {
+    background: #393058; }
+  .A-webview .killed #sad-webview #killed-label {
+    display: block; }
+  .A-webview .killed #sad-webview #crashed-label {
+    display: none; }
+
 /*# sourceMappingURL=index.css.map */

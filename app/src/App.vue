@@ -118,6 +118,9 @@
         display: inline-flex;
         border: none;
         width: 100%;
+    }
+
+    iframe {
         height: 100%;
     }
 
