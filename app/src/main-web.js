@@ -14,7 +14,7 @@ const ELECTRON_ORIGIN = 'http://localhost:8081';
 const WEB_ORIGIN = 'http://localhost:8081';
 const IS_ELECTRON = !!(window && window.process && window.process.type);
 const ORIGIN = IS_ELECTRON ? ELECTRON_ORIGIN : WEB_ORIGIN;
-
+const HOME_URL = 'https://www.google.com/';
 
 window.$ = $;
 window.akakor = {
@@ -23,7 +23,8 @@ window.akakor = {
     api,
     bus,
     IS_ELECTRON,
-    ORIGIN
+    ORIGIN,
+    HOME_URL
 }
 let app;
 

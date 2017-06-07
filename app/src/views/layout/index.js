@@ -70,7 +70,14 @@ export class Layout {
         });
 
         golden_layout.registerComponent('default', function (container, state) {
-            new Default({golden_layout, container, state});
+            state.url = akakor.HOME_URL;
+            console.log('state', state);
+            if (akakor.IS_ELECTRON) {
+                new Webview({golden_layout, container, state});
+            }
+            else {
+                new Iframe({golden_layout, container, state});
+            }
         });
 
         golden_layout.on('initialised', function () {});
