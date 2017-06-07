@@ -4,6 +4,7 @@ export class Webview {
     constructor({golden_layout, container, state}) {
 
         const vm = this;
+        vm.container = container;
         vm.$html = $('#webview-template').clone().removeAttr('id').show();
         vm.$webview = vm.$html.find('webview');
         vm.$webview
@@ -30,19 +31,30 @@ export class Webview {
                 console.log('did stop loading');
             })
             .on('dom-ready', event => {
+
                 console.log('dom ready');
-                container.getState();
-                const title = event.srcElement.getTitle();
-                container.setTitle(title);
-                container.extendState({
-                    title
-                });
+                // vm.container.getState();
+
+                const title = event.target.getTitle();
+                vm.setTitle(title);
+
             });
 
-        container.getElement().html(vm.$html);
+        vm.container.getElement().html(vm.$html);
 
         // window.onresize = dolayout;
         vm.isloading = false;
+
+    }
+
+    setTitle(title) {
+
+        const vm = this;
+        // vm.container.getState();
+        vm.container.setTitle(title);
+        vm.container.extendState({
+            title
+        });
 
     }
 
@@ -91,12 +103,12 @@ export class Webview {
           vm.navigateTo(html.querySelector('#location').value);
         };
 
-        webview.addEventListener('exit', vm.handleexit);
-        webview.addEventListener('loadstart', vm.handleloadstart);
-        webview.addEventListener('loadstop', vm.handleloadstop);
-        webview.addEventListener('loadabort', vm.handleloadabort);
-        webview.addEventListener('loadredirect', vm.handleloadredirect);
-        webview.addEventListener('loadcommit', vm.handleloadcommit);
+        webview.addEventListener('crashed', event => vm.handleexit(event));
+        webview.addEventListener('did-start-loading', event => vm.handleloadstart(event));
+        webview.addEventListener('did-stop-loading', event => vm.handleloadstop(event));
+        webview.addEventListener('did-fail-load', event => vm.handleloadabort(event));
+        webview.addEventListener('did-get-redirect-request', event => vm.handleloadredirect(event));
+        webview.addEventListener('load-commit', event => vm.handleloadcommit(event));
 
         // test for the presence of the experimental <webview> zoom and find apis.
         if (typeof(webview.setZoomFactor) == 'function' && typeof(webview.findInPage) == 'function') {
@@ -137,9 +149,9 @@ export class Webview {
           html.querySelector('#find').onclick = () => {
               if (html.querySelector('#find-box').style.display == 'block') {
                   html.querySelector('webview').stopFindInPage('clearSelection');
-                  vm.closefindbox();
+                  vm.closeFindBox();
               } else {
-                  vm.openfindbox();
+                  vm.openFindBox();
               }
           };
 
@@ -151,7 +163,7 @@ export class Webview {
               if (event.ctrlkey && event.keycode == 13) {
                   event.preventDefault();
                   webview.stopFindInPage('activate');
-                  vm.closefindbox();
+                  vm.closeFindBox();
               }
           }
 
@@ -179,8 +191,8 @@ export class Webview {
               webview.findInPage(html.querySelector('#find-text').value, {matchcase: findmatchcase});
           }
 
-          webview.addeventlistener('findupdate', vm.handlefindupdate);
-          html.addeventlistener('keydown', vm.handlekeydown);
+          webview.addEventListener('findupdate', vm.handlefindupdate);
+          html.addEventListener('keydown', vm.handlekeydown);
         } else {
           const zoom = html.querySelector('#zoom');
           const find = html.querySelector('#find');
@@ -283,7 +295,7 @@ export class Webview {
                 // ctrl+f.
                 case 70:
                     event.preventDefault();
-                    vm.openfindbox();
+                    vm.openFindBox();
                     break;
 
                 // ctrl++.
@@ -304,28 +316,30 @@ export class Webview {
 
     handleloadcommit(event) {
 
+        console.log('load commit');
         const vm = this;
         const webview = vm.$webview[0];
         const html = this.$html[0];
-        resetexitedstate();
+        vm.resetexitedstate();
 
-        if (!event.istoplevel) return;
+        if (!event.isMainFrame) return;
 
         html.querySelector('#location').value = event.url;
-        html.querySelector('#back').disabled = !webview.cangoback();
-        html.querySelector('#forward').disabled = !webview.cangoforward();
+        html.querySelector('#back').disabled = !webview.canGoBack();
+        html.querySelector('#forward').disabled = !webview.canGoForward();
         vm.closeBoxes();
 
     }
 
     handleloadstart(event) {
 
-        const html = this.$html[0];
-        html.body.classList.add('loading');
+        const vm = this;
+        const html = vm.$html[0];
+        html.classList.add('loading');
         vm.isloading = true;
-        resetexitedstate();
+        vm.resetexitedstate();
 
-        if (!event.istoplevel) return;
+        if (!event.isMainFrame) return;
 
         html.querySelector('#location').value = event.url;
 
@@ -344,17 +358,18 @@ export class Webview {
         console.log('handleloadabort');
         console.log('loadabort');
         console.log('  url: ' + event.url);
-        console.log('  istoplevel: ' + event.istoplevel);
+        console.log('  isMainFrame: ' + event.isMainFrame);
         console.log('  type: ' + event.type);
 
     }
 
     handleloadredirect(event) {
 
-        const html = this.$html[0];
-        resetexitedstate();
+        const vm =  this;
+        const html = vm.$html[0];
+        vm.resetexitedstate();
 
-        if (!event.istoplevel) return;
+        if (!event.isMainFrame) return;
 
         html.querySelector('#location').value = event.newurl;
 
@@ -430,7 +445,7 @@ export class Webview {
 
     }
 
-    openfindbox() {
+    openFindBox() {
 
       const html = this.$html[0];
       html.querySelector('#find-box').style.display = 'block';
@@ -438,7 +453,7 @@ export class Webview {
 
     }
 
-    closefindbox() {
+    closeFindBox() {
 
       const html = this.$html[0];
       const findbox = html.querySelector('#find-box');
@@ -451,8 +466,9 @@ export class Webview {
 
     closeBoxes() {
 
-      closeZoomBox();
-      closeFindBox();
+        const vm = this;
+        vm.closeZoomBox();
+        vm.closeFindBox();
 
     }
 
