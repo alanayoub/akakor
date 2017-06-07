@@ -109,6 +109,7 @@ export class Webview {
         webview.addEventListener('did-fail-load', event => vm.handleloadabort(event));
         webview.addEventListener('did-get-redirect-request', event => vm.handleloadredirect(event));
         webview.addEventListener('load-commit', event => vm.handleloadcommit(event));
+        webview.addEventListener('new-window', event => vm.handleNewWindow(event));
 
         // test for the presence of the experimental <webview> zoom and find apis.
         if (typeof(webview.setZoomFactor) == 'function' && typeof(webview.findInPage) == 'function') {
@@ -231,6 +232,10 @@ export class Webview {
         webview.focus();
         webview.src = url;
 
+    }
+
+    handleNewWindow(event) {
+        console.log('open new window', event);
     }
 
     handleexit(event) {
