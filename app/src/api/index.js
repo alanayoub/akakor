@@ -182,6 +182,7 @@ export class API {
     // Save a configuration
     //
     save({layout, id, title='Untitled'}) {
+        console.log('save from api');
         const api = this;
         return new Promise(resolve => {
             api.check_if_config_exists(id).then(exists => {

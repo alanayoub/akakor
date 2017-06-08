@@ -5,7 +5,9 @@ export class Webview {
 
         const vm = this;
         vm.container = container;
+        vm.golden_layout = golden_layout;
         vm.$html = $('#webview-template').clone().removeAttr('id').show();
+        vm.$html.find('#location').val(state.url);
         vm.$webview = vm.$html.find('webview');
         vm.$webview
             .attr('src', state.url)
@@ -36,7 +38,8 @@ export class Webview {
                 // vm.container.getState();
 
                 const title = event.target.getTitle();
-                vm.setTitle(title);
+                const url = event.target.src;
+                vm.setNewUrl(title, url);
 
             });
 
@@ -47,14 +50,18 @@ export class Webview {
 
     }
 
-    setTitle(title) {
+    setNewUrl(title, url) {
 
         const vm = this;
-        // vm.container.getState();
+        const state = vm.container.getState();
+        const config = vm.golden_layout.config.content[0];
+        console.log('config', config);
         vm.container.setTitle(title);
         vm.container.extendState({
-            title
+            title,
+            url
         });
+        vm.golden_layout.emit('urlChanged');
 
     }
 

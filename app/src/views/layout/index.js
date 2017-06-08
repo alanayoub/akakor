@@ -29,7 +29,23 @@ function is_valid_layout(layout) {
 
 export class Layout {
 
+    save(config) {
+        const vm = this;
+        console.log('saving...');
+        akakor.api.save(config, vm.id).then(new_id => {
+            if (vm.id !== new_id) {
+                window.akakor.bus.$emit('NEW_LAYOUT_CREATED', vm.id, Object.assign(config, {
+                    id: new_id
+                }));
+                vm.id = new_id;
+            }
+        });
+    }
+
     constructor({selector, layout, id, title, tab, state = {}}) {
+
+        const vm = this;
+        vm.id = id;
 
         let config = {
             settings: {
@@ -60,7 +76,6 @@ export class Layout {
         }
 
         golden_layout.registerComponent('website', function (container, state) {
-            console.log(container, state);
             if (akakor.IS_ELECTRON) {
                 new Webview({golden_layout, container, state});
             }
@@ -70,8 +85,7 @@ export class Layout {
         });
 
         golden_layout.registerComponent('default', function (container, state) {
-            state.url = akakor.HOME_URL;
-            console.log('state', state);
+            if (!state.url) state.url = akakor.HOME_URL;
             if (akakor.IS_ELECTRON) {
                 new Webview({golden_layout, container, state});
             }
@@ -82,20 +96,29 @@ export class Layout {
 
         golden_layout.on('initialised', function () {});
 
+        golden_layout.on('urlChanged', function () {
+        });
+
         golden_layout.on('stateChanged', function () {
-            const config = {
+            console.log('stateChanged event');
+            vm.save({
                 layout: golden_layout.toConfig().content,
-                title,
-                id
-            }
-            akakor.api.save(config, id).then(new_id => {
-                if (id !== new_id) {
-                    window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
-                        id: new_id
-                    }));
-                    id = new_id;
-                }
+                id: vm.id,
+                title
             });
+            // const config = {
+            //     layout: golden_layout.toConfig().content,
+            //     title,
+            //     id
+            // }
+            // akakor.api.save(config, id).then(new_id => {
+            //     if (id !== new_id) {
+            //         window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
+            //             id: new_id
+            //         }));
+            //         id = new_id;
+            //     }
+            // });
         });
 
         golden_layout.on('stackCreated', function (stack) {
