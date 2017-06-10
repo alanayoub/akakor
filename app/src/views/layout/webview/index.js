@@ -33,14 +33,13 @@ export class Webview {
                 console.log('did stop loading');
             })
             .on('dom-ready', event => {
-
                 console.log('dom ready');
-                // vm.container.getState();
-
+            })
+            .on('did-navigate, did-navigate-in-page', event => {
+                console.log('did navigate');
                 const title = event.target.getTitle();
                 const url = event.target.src;
                 vm.setNewUrl(title, url);
-
             });
 
         vm.container.getElement().html(vm.$html);
