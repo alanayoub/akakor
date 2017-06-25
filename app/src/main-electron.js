@@ -45,6 +45,9 @@ app.on('ready', () => {
     createWindow({url: 'http://localhost:8081/signin.html'});
 });
 
+app.on('web-contents-created', (event, webContents) => {
+});
+
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') {
         app.quit();
@@ -52,7 +55,7 @@ app.on('window-all-closed', function () {
 });
 
 app.on('activate', () => {
-  if (win === null) {
-      createWindow();
-  }
-})
+    if (win === null) {
+        createWindow();
+    }
+});

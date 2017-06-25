@@ -1,3 +1,4 @@
+// const electronContextMenu = require('electron-context-menu');
 import $ from 'jquery';
 export class Webview {
 
@@ -10,12 +11,13 @@ export class Webview {
         vm.$html.find('#location').val(state.url);
         vm.$webview = vm.$html.find('webview');
         vm.$webview
+            .attr('data-id', state.id)
             .attr('src', state.url)
             .on('did-start-loading', event => {
-                console.log('did start loading');
+                // console.log('did start loading');
             })
             .on('did-finish-load', () => {
-                console.log('did finish load');
+                // console.log('did finish load');
                 vm.onload();
                 // let styles;
                 // if (state.selectors && state.selectors.length) {
@@ -30,17 +32,47 @@ export class Webview {
                 // $webview.insertCSS(styles);
             })
             .on('did-stop-loading', () => {
-                console.log('did stop loading');
+                // console.log('did stop loading');
             })
             .on('dom-ready', event => {
-                console.log('dom ready');
+
+                const webview = vm.$webview[0];
+
+                // Show devTools if you want
+                // webview.openDevTools();
+                // console.log("DOM-Ready, triggering events !");
+
+                // Aler the scripts src of the website from the <webview>
+                webview.send("request");
+
+                // alert-something
+                webview.send("alert-something", "Hey, i'm alerting this.");
+
+                // change-text-element manipulating the DOM
+                webview.send("change-text-element",{
+                    id: "myelementID",
+                    text: "My text"
+                });
+
             })
             .on('did-navigate, did-navigate-in-page', event => {
-                console.log('did navigate');
+                // console.log('did navigate');
                 const title = event.target.getTitle();
                 const url = event.target.src;
                 vm.setNewUrl(title, url);
+            })
+            .on('console-message', event => {
+                // console.log('console message', event);
             });
+
+        // electronContextMenu({
+        //     window: vm.$webview[0],
+        //     prepend: (params, BrowserWindow) => [{
+        //         label: 'Rainbow',
+        //         // Only show it when right-clicking images
+        //         visible: params.mediaType === 'image'
+        //     }]
+        // });
 
         vm.container.getElement().html(vm.$html);
 
@@ -54,7 +86,6 @@ export class Webview {
         const vm = this;
         const state = vm.container.getState();
         const config = vm.golden_layout.config.content[0];
-        console.log('config', config);
         vm.container.setTitle(title);
         vm.container.extendState({
             title,
@@ -241,7 +272,8 @@ export class Webview {
     }
 
     handleNewWindow(event) {
-        console.log('open new window', event);
+        const vm = this;
+        vm.golden_layout.emit('newTab', event);
     }
 
     handleexit(event) {

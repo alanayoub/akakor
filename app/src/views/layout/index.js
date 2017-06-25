@@ -27,6 +27,10 @@ function is_valid_layout(layout) {
     return type === 'column' || type === 'row'
 }
 
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+}
+
 export class Layout {
 
     save(config) {
@@ -99,6 +103,26 @@ export class Layout {
         golden_layout.on('urlChanged', function () {
         });
 
+        golden_layout.on('newTab', event => {
+            const webview = event.target;
+            const url = event.url;
+            const id = getRandomInt(0, 9999999999);
+            let stack;
+            golden_layout._getAllContentItems().forEach(item => {
+                item.contentItems.forEach(citem => {
+                    if ($(webview).data('id') === citem.config.id) {
+                        stack = item;
+                    }
+                });
+            });
+            stack.addChild({
+                id,
+                type: 'component',
+                componentName: 'default',
+                componentState: {id, url, title: ''}
+            });
+        });
+
         golden_layout.on('stateChanged', function () {
             console.log('stateChanged event');
             vm.save({
@@ -130,11 +154,12 @@ export class Layout {
                     <li class="a-divider"></li>
             `);
             $html.on('click', function (event) {
+                const id = getRandomInt(0, 9999999999);
                 stack.addChild({
-                    id: +new Date(),
+                    id,
                     type: 'component',
                     componentName: 'default',
-                    componentState: {title: '', url: ''}
+                    componentState: {id, title: '', url: ''}
                 });
             });
             stack.header.controlsContainer.prepend($html);
@@ -181,7 +206,7 @@ export class Layout {
             }
             else {
                 const id = matrix[0].split('')[0];
-                state[id].id = `test-${id}`;
+                state[id].id = getRandomInt(0, 9999999999);
                 ref.push({
                     type: 'stack',
                     width: dimensions[id].w,

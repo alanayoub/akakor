@@ -32,6 +32,7 @@
     "cross-env": "^3.0.0",
     "css-loader": "^0.25.0",
     "electron": "^1.6.2",
+    "electron-context-menu": "^0.9.1",
     "electron-packager": "^8.6.0",
     "electron-prebuilt-compile": "^1.4.15",
     "electron-window-state": "^4.1.1",
