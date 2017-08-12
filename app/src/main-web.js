@@ -1,8 +1,8 @@
-import Vue from 'vue'
-import App from './App.vue'
-
 import 'babel-polyfill';
 import $ from 'jquery';
+import Vue from 'vue';
+
+import App from './App.vue';
 import { API } from './api';
 
 const api = new API();
@@ -24,7 +24,7 @@ window.akakor = {
     bus,
     IS_ELECTRON,
     ORIGIN,
-    HOME_URL
+    HOME_URL,
 }
 let app;
 

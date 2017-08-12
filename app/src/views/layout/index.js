@@ -35,7 +35,8 @@ export class Layout {
 
     save(config) {
         const vm = this;
-        console.log('saving...');
+        const current_time = +new Date();
+        if ((current_time - vm.last_change) < 2000) return;
         akakor.api.save(config, vm.id).then(new_id => {
             if (vm.id !== new_id) {
                 window.akakor.bus.$emit('NEW_LAYOUT_CREATED', vm.id, Object.assign(config, {
@@ -49,6 +50,7 @@ export class Layout {
     constructor({selector, layout, id, title, tab, state = {}}) {
 
         const vm = this;
+        vm.last_change = +new Date();
         vm.id = id;
 
         let config = {
@@ -124,12 +126,14 @@ export class Layout {
         });
 
         golden_layout.on('stateChanged', function () {
-            console.log('stateChanged event');
-            vm.save({
-                layout: golden_layout.toConfig().content,
-                id: vm.id,
-                title
-            });
+            vm.last_change = +new Date();
+            setTimeout(() => {
+                vm.save({
+                    layout: golden_layout.toConfig().content,
+                    id: vm.id,
+                    title
+                });
+            }, 2000);
             // const config = {
             //     layout: golden_layout.toConfig().content,
             //     title,

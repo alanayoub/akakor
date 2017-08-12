@@ -5,6 +5,8 @@ export class Webview {
     constructor({golden_layout, container, state}) {
 
         const vm = this;
+
+        vm.Mousetrap = require('mousetrap');
         vm.container = container;
         vm.golden_layout = golden_layout;
         vm.$html = $('#webview-template').clone().removeAttr('id').show();
@@ -230,7 +232,42 @@ export class Webview {
           }
 
           webview.addEventListener('findupdate', vm.handlefindupdate);
-          html.addEventListener('keydown', vm.handlekeydown);
+
+          // vm.container.addEventListener('click', event => {
+          //     console.log('click webivew', webview);
+          // });
+
+          // // Keyboard shortcuts
+          // vm.Mousetrap.bind('ctrl+-', function (event) {
+          //   console.log('vm', vm);
+          //   console.log('-');
+          //   event.stopPropagation();
+          //   vm.decreasezoom();
+          //   return false;
+          // });
+
+          // vm.Mousetrap.bind('ctrl+=', function (event) {
+          //   console.log('vm', vm);
+          //   console.log('+');
+          //   event.stopPropagation();
+          //   vm.increasezoom();
+          //   return false;
+          // });
+
+          // vm.Mousetrap.bind('ctrl+f', function (event) {
+          //   console.log('find');
+          //   event.stopPropagation();
+          //   vm.openFindBox();
+          //   return false;
+          // });
+
+          // vm.Mousetrap.bind('esc', function (event) {
+          //   console.log('escape');
+          //   event.stopPropagation();
+          //   vm.closeBoxes();
+          //   return false;
+          // });
+
         } else {
           const zoom = html.querySelector('#zoom');
           const find = html.querySelector('#find');
@@ -264,7 +301,12 @@ export class Webview {
     navigateTo(url) {
 
         const vm = this;
+        const html = vm.$html[0];
         const webview = vm.$webview[0];
+        if (!/^http/.test(url)) {
+            url = `http://${url}`;
+            html.querySelector('#location').value = url;
+        }
         vm.resetexitedstate();
         webview.focus();
         webview.src = url;
@@ -332,34 +374,9 @@ export class Webview {
             findboxrect.bottom > matchrect.top;
     }
 
-    handlekeydown(event) {
-        if (event.ctrlkey) {
-            switch (event.keycode) {
-                // ctrl+f.
-                case 70:
-                    event.preventDefault();
-                    vm.openFindBox();
-                    break;
-
-                // ctrl++.
-                case 107:
-                case 187:
-                    event.preventDefault();
-                    vm.increasezoom();
-                    break;
-
-                // ctrl+-.
-                case 109:
-                case 189:
-                    event.preventDefault();
-                    vm.decreasezoom();
-            }
-        }
-    }
-
     handleloadcommit(event) {
 
-        console.log('load commit');
+        // console.log('load commit');
         const vm = this;
         const webview = vm.$webview[0];
         const html = this.$html[0];
@@ -398,11 +415,11 @@ export class Webview {
 
     handleloadabort(event) {
 
-        console.log('handleloadabort');
-        console.log('loadabort');
-        console.log('  url: ' + event.url);
-        console.log('  isMainFrame: ' + event.isMainFrame);
-        console.log('  type: ' + event.type);
+        // console.log('handleloadabort');
+        // console.log('loadabort');
+        // console.log('  url: ' + event.url);
+        // console.log('  isMainFrame: ' + event.isMainFrame);
+        // console.log('  type: ' + event.type);
 
     }
 

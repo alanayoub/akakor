@@ -47,6 +47,7 @@
         },
         created() {
             window.akakor.bus.$on('DEFAULT_LAYOUT_SELECTED', layout => {
+                console.log('DEFAULT_LAYOUT_SELECTED', this.tabs);
                 this.tabs.forEach(tab => {
                     if (tab.isActive) {
                         tab.default = true;
@@ -56,6 +57,7 @@
                 });
             })
             window.akakor.bus.$on('PRIVATE_LAYOUT_SELECTED', layout => {
+                console.log('PRIVATE_LAYOUT_SELECTED', this.tabs);
                 this.tabs.forEach(tab => {
                     if (tab.isActive) {
                         tab.private = true;
@@ -67,6 +69,7 @@
                 });
             })
             window.akakor.bus.$on('PUBLIC_LAYOUT_SELECTED', layout => {
+                console.log('PUBLIC_LAYOUT_SELECTED', this.tabs);
                 const id = 0; // dummy id that doesnt exist
                 const config = {
                     layout: layout.val.layout,
@@ -74,12 +77,14 @@
                     id
                 }
                 window.akakor.api.save(config).then(new_id => {
+                    console.log('PUBLIC_LAYOUT_SELECTED then NEW_LAYOUT_CREATED', this.tabs);
                     window.akakor.bus.$emit('NEW_LAYOUT_CREATED', id, Object.assign(config, {
                         id: new_id
                     }));
                 });
             })
             window.akakor.bus.$on('NEW_LAYOUT_CREATED', (id, data) => {
+                console.log('NEW_LAYOUT_CREATED', this.tabs);
                 this.tabs.forEach(tab => {
                     if (tab.id === id) {
                         tab.default = false;
@@ -116,6 +121,7 @@
                 });
             },
             setActive(tab) {
+                console.log('setActive', tab, this.tabs);
                 tab.isActive = true;
                 this.activeTab = tab;
                 this.tabs.forEach(tab => {
